@@ -1,1 +1,1 @@
-# hejicalc
+# Plainsound Harmonic Space Calculator
