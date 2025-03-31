@@ -1,0 +1,152 @@
+ <style type="text/css">
+	/* FONT LOADS */
+	@font-face {
+		font-family: "HEJI";
+		src: url("HEJI.otf") format("opentype");
+	}  
+	@font-face {
+		font-family: "HEJI2Bravura";
+		src: url("HEJI2Bravura.otf") format("opentype");
+	}
+
+	/* CSS DEFINITIONS */
+	body  {
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		background-color: #303030;
+		color: #DCDCDC;
+	}
+	hr {
+		border-bottom: none;
+    	border-top: 0.5px solid #DCDCDC;
+	}
+	a {
+		color: #78CDE8;
+		text-decoration: none;
+	}
+	select {
+		font-family: 'Roboto Condensed', sans-serif;
+		background-color: #DCDCDC;
+		border: none;
+		border-radius: 20%;
+	}
+	em  {
+		font-family: 'Roboto Condensed', sans-serif;
+		font-style: italic;
+		line-height: 148%;
+		color: #D3E6D1;
+	}
+	strong {
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		font-weight: 700;
+		color: #DCDCDC;
+	}
+	h1 {
+		white-space: nowrap;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 20pt;
+		font-weight: 300;
+		line-height: 0;
+		color: #DCDCDC;
+	}
+	h2 {
+		margin:0;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 18px;
+		line-height: 1.5;
+		color: #DCDCDC;
+	}
+	h3 { 
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 18px;
+		line-height: 0;
+	}
+	input {
+		font-family: 'Roboto Condensed', sans-serif;
+		background-color: #e3e4e5;
+		border: none;
+		border-radius: 0%;
+	}
+	table {
+		border-collapse: collapse;
+		border-color: #DCDCDC;
+	}
+	table, th, td {
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-bottom: 5px;
+		vertical-align: top;
+	}
+	table.enharmonic {
+		padding: 100px;
+	}
+	table.centred {
+		text-align: center;
+	}
+	button {
+		background-color: #605775;
+		color: #DCDCDC;
+		text-align: center;
+		vertical-align: middle;
+		border: 1px solid #a8b8a7;
+		margin-left: -2.5px;
+		margin-right: -2.5px;
+		margin-top: 0px;
+		margin-bottom: -1px;
+	}
+	button.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental, .spacer {
+		height: 50px;
+		width: 40px;
+		border: 1px solid #a8b8a7;
+		position: relative;
+		border-radius: 35%;
+	}
+	.label {
+		font-family: 'Roboto Condensed', sans-serif;
+		color: #a8b8a7;
+	}
+	.octave, .notes, .refOctave, .refNote {
+		border-radius: 50%;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+	.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental {
+		font-family: "HEJI";
+		font-size: 20pt;
+		position: relative;
+	}
+	.refNote, .refOctave, .octave, .notes {
+		font-size: 12pt;
+	}
+	.notationOutput{
+		font-family: "HEJI2Bravura";
+		font-size: 28pt;
+	}
+	.noteName{
+		font-family: "HEJI";
+		font-size: 28pt;
+	}
+	.clear {
+		font-size: 18pt;
+	}
+	.selected {
+		background-color: #D3E6D1;
+		color: #544c66;
+		border: 1px solid #a8b8a7;
+		font-weight: bold;
+	}
+	.clearFreq, .clear, .clearSave, .clearMelodic, .clearMelodicSave, .clearInputRatio, .clearEnharmonic {
+		border-radius: 6px;
+		color: #DCDCDC;
+		font-family: 'Roboto Condensed', sans-serif;
+		background-color: #605775;
+		border: 1px solid #a8b8a7;
+	}
+	.getMelodic, .getMelodicReference, .getCurrentPitch, .getEnharmonic {
+		border-radius: 6px;
+		background-color: #D3E6D1;
+		color: #404040;
+		border: 1px solid #605775;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+</style>
