@@ -249,13 +249,13 @@
 				<span class="label">43o
 				<br>
 				<span class="label">u47
-					<button class="fortySeven" value="0">ììì</button><!-- 
-				--><button class="fortySeven" value="1">ìì</button><!-- 
-				--><button class="fortySeven" value="2">ì</button><!-- 
+					<button class="fortySeven" value="0">&#xee5a;&#xee5a;&#xee5a;</button><!-- 
+				--><button class="fortySeven" value="1">&#xee5a;&#xee5a;</button><!-- 
+				--><button class="fortySeven" value="2">&#xee5a;</button><!-- 
 				--><button id="default47" class="fortySeven selected" value="3">n</button><!-- 
-				--><button class="fortySeven" value="4">í</button><!-- 
-				--><button class="fortySeven" value="5">íí</button><!-- 
-				--><button class="fortySeven" value="6">ííí</button>
+				--><button class="fortySeven" value="4">&#xee5b;</button><!-- 
+				--><button class="fortySeven" value="5">&#xee5b;&#xee5b;</button><!-- 
+				--><button class="fortySeven" value="6">&#xee5b;&#xee5b;&#xee5b;</button>
 				<span class="label">47o
 				<br>
             </div>

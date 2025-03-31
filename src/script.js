@@ -306,7 +306,7 @@ const thirtyOneSymbols = ["111","11","1","","8","88","888"];
 const thirtySevenSymbols = ["ààà","àà","à","","á","áá","ááá"];
 const fortyOneSymbols = ["---","--","-","","+","++","+++"];
 const fortyThreeSymbols = ["èèè","èè","è","","é","éé","ééé"];
-const fortySevenSymbols = ["ììì","ìì","ì","","í","íí","ííí"];
+const fortySevenSymbols = ["&#xee5b;&#xee5b;&#xee5b;","&#xee5b;&#xee5b;","&#xee5b;","","&#xee5a;","&#xee5a;&#xee5a;","&#xee5a;&#xee5a;&#xee5a;"];
 
 // Print-out of closest MIDI note (12-ED2)
 const refMidiNote = ["C", "C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"];
