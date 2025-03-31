@@ -1,0 +1,128 @@
+<style type="text/css">
+	/* FONT LOADS */
+	@font-face {
+		font-family: "HEJI";
+		src: url("HEJI.ttf") format("truetype");
+	}  
+	@font-face {
+		font-family: "HEJI2";
+		src: url("HEJI2.ttf") format("truetype");
+	}
+	/* CSS DEFINITIONS */
+	body  {
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		background-color: white;
+		color: #330000;
+	}
+	em  {
+		font-family: 'Roboto Condensed', sans-serif;
+		font-style: italic;
+		line-height: 148%;
+		background-color: white;
+		color: #330000;
+	}
+	strong {
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		font-weight: 700;
+		background-color: white;
+		color: #330000;
+	}
+	h1 {
+		white-space: nowrap;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 20pt;
+		font-weight: 300;
+		line-height: 0;
+		color:gray;
+	}
+	h2 {
+		margin:0;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 18px;
+		line-height: 1.5;
+	}
+	h3 { 
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 18px;
+		line-height: 0;
+	}
+	input {
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+	table {
+		border-collapse: collapse;
+	}
+	table, th, td {
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-bottom: 5px;
+		vertical-align: top;
+	}
+	table.enharmonic {
+		padding: 100px;
+	}
+	table.centred {
+		text-align: center;
+	}
+	button {
+		background-color: #fff6e8;
+		text-align: center;
+		vertical-align: middle;
+		border: 1px solid gray;
+		margin-left: -2.5px;
+		margin-right: -2.5px;
+		margin-top: 0px;
+		margin-bottom: -1px;
+	}
+	button.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental, .spacer {
+		height: 50px;
+		width: 40px;
+		border: 1px solid gray;
+		position: relative;
+	}
+	.label {
+		font-family: 'Roboto Condensed', sans-serif;
+		color: gray;
+	}
+	.octave, .notes, .refOctave, .refNote {
+		border-radius: 50%;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+	.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental {
+		font-family: "HEJI";
+		font-size: 20pt;
+		position: relative;
+	}
+	.refNote, .refOctave, .octave, .notes {
+		font-size: 12pt;
+	}
+	.notationOutput{
+		font-family: "HEJI2";
+		font-size: 28pt;
+	}
+	.noteName{
+		font-family: "HEJI";
+		font-size: 28pt;
+	}
+	.clear {
+		font-size: 18pt;
+	}
+	.selected {
+		background-color: #d4ffc6;
+		border: 1px solid gray;
+	}
+	.clearFreq, .clear, .clearSave, .clearMelodicSave, .clearInputRatio, .clearEnharmonic {
+		border-radius: 6px;
+		font-family: 'Roboto Condensed', sans-serif;
+		background-color: #e3e4e5;
+		border: 1px solid gray;
+	}
+	.getMelodic, .getMelodicReference, .getCurrentPitch, .getEnharmonic {
+		border-radius: 6px;
+		background-color: #d4ffc6;
+		border: 1px solid gray;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+</style>

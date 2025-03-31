@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700,700i" rel="stylesheet">
+	<style>
+	h1 {
+		white-space: nowrap;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 20pt;
+		font-weight: 400;
+		line-height: 0;
+		color:gray;
+		text-align: center;
+	}
+	h2 {
+		margin:0;
+		font-weight: 700;
+		font-size: 19px;
+		line-height: 1.5;
+	}
+	h3 {
+		margin:0;
+		font-style: italic;
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 1.5;
+	}
+	body  {
+		margin:auto;
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		background-color: white;
+		color: #330000;
+		width:800px;
+	}
+	div {
+		padding-left:20px;
+	}
+	.center {
+ 		display: block;
+  		margin-left: auto;
+  		margin-right: auto;
+	}
+</style>
+</head>
+<body>
+	<h1>About the calculator</h1>
+	<center><a href="index.php">return</a></center><br>
+	The Helmholtz-Ellis 31-Limit Harmonic Space Calculator is a tool for composers and musicians who are interested in discovering and working with the properties of intervals tuned in just intonation. It makes use of the Extended Helmholtz-Ellis JI Pitch Notation developed by Marc Sabat and Wolfgang von Schweinitz. HEJI explicitly notates the raising and lowering of pitches by specified microtones and provides visually distinctive &ldquo;logos&rdquo; distinguishing &ldquo;families&rdquo; of natural intervals based on the harmonic series.
+	<br><br>
+	By default, the calculator&rsquo;s harmonic <strong>reference</strong> is the note A in octave 4 (440 Hz) &mdash; it is important to realise that this is, for the most part, not a &ldquo;fundamental&rdquo; but rather a point of reference for all the other points in the network. Harry Partch called of this outgrowth of the harmonic space from a single reference <em>Monophony</em>. In <em>Genesis of a Music</em>, he describes it as &ldquo;[a]n organization of musical materials based upon the faculty of the human ear to perceive all intervals and to deduce all principles of musical relationship as an expansion from unity, as 1 is to 1.&rdquo; Changing this reference in the calculator using the pitch-class and octave buttons automatically updates its frequency, as in Example 1, where it was changed to E3.
+	<br><br>
+	<center><em>Example 1</em></center>
+	<img src="ex_1.jpg" style="width:210px;" class="center">
+	<br>
+	The reference pitches are related by 12-tone equal temperament (12-ED2). If a just intonation reference of E3 (3/8 in relation to A4) were desired, then the frequency of 1/1 may be adjusted accordingly, to 165 Hz. The frequency of A4 automatically adjusts itself to 440.497152 Hz because its relationship to E3 remains tempered within the reference framework. The result, however, is that an input of A4 (8/3 above the reference) in the calculator gives the <em>correct</em> frequency of 440 Hz, since the untempered perfect 11th is slightly narrower than the tempered.
+	<br><br>
+	<center><em>Example 2</em></center>
+	<img src="ex_2.jpg" style="width:210px;" class="center">
+	<br>
+	The <strong>notation input</strong> portion of the calculator is relatively self-explanatory. Selecting the octave, diatonic pitch, and just intonation accidental of a note outputs its relevant information with respect to a preselected reference (here A4, 440 Hz).
+	<br><br>
+	<center><em>Example 3</em></center>
+	<img src="ex_3.jpg" style="width:300px;" class="center">
+	<br>
+	The <strong>output</strong> provides information about the input: its ratio, notation, cent deviation (within 50 cents of its nearest 12-ED2 pitch-class), absolute size in cents, frequency, Tenney Harmonic Distance (HD), and harmonic space coordinates.
+	<br><br>
+	<center><em>Example 4</em></center>
+	<img src="ex_4.jpg" style="width:260px;" class="center">
+	<br>
+	This last element is the ratio&rsquo;s particular prime factorisation, where each number is a <em>power</em> of the primes up to 31 (2,3,5,7,11,13,17,19,23,29,31). In Example 4, the prime factorisation is 2<sup>4</sup> * 3<sup>-</sup><sup>4</sup> * 5<sup>-</sup><sup>1</sup> * 13<sup>1</sup>. Larger numbers are the result of greater distances away the harmonic centre (reference) along a given prime axis.
+	<br><br>
+	<center><em>Example 5</em></center>
+	<img src="ex_5.jpg" style="width:260px;" class="center">
+	<br>
+	By toggling the <strong>normalise</strong> function, the interval is brought within the octave above the reference (between 1/1 and 2/1), irrespective of its absolute distance (that is, whether the pitch has been entered in any other octave). The output, therefore, becomes a pitch-class. Consequently, the first position (power of 2) of its harmonic space coordinates is no longer relevant and is replaced by a placeholder (--), as in Example 5.
+	<br>
+	Selecting <strong>ratio input</strong> compliments the notation input in that the calculator may be used to find the correct notation for any ratio.
+	<br><br>
+	<center><em>Example 6</em></center>
+	<img src="ex_6.jpg" style="width:450px;" class="center">
+	<br>
+	Example 6 shows an inputted ratio of 3/5 from the default reference of A4. By means of the offset ratio, however, this input method may be used to find both the ratios and notations of more distant and complex harmonic relationships, which must be constructed. For instance, if the desire were to find the normalised 11th harmonic (11/8) of the previously calculated 3/5, one may click <em>save output</em> (or, alternately, type 3/5 into the input boxes if the ratio is already known; Example 7) then enter 11/8 into the input field (Example 8).
+	<br><br>
+	<center><em>Example 7</em></center>
+	<img src="ex_7.jpg" style="width:450px;" class="center">
+	<br><br>
+	<center><em>Example 8</em></center>
+	<img src="ex_8.jpg" style="width:450px;" class="center">
+	<br>
+	Note that, because calculations occur automatically when a change takes place in any element of the calculator, an E-flat (9/25) first appears in the output before 11/8 has been entered into the input. This demonstrates how cycles of a single interval may be easily calculated by repeatedly clicking <em>save output</em> and not altering the input ratio. Example 9 shows a cycle of three 3/5s &mdash; first, 3/5 was entered into the input, then <em>save output</em> was clicked twice. In this situation, toggling normalise may be useful to keep a handle on ratios that can quickly begin to span many octaves.
+	<br><br>
+	<center><em>Example 9</em></center>
+	<img src="ex_9.jpg" style="width:450px;" class="center">
+	<br>
+	The<strong> melodic distance</strong> section of the calculator find the interval between two pitches by saving separate outputs. For example, by inputting the pitch in Example 10 and clicking <em>save output</em>, then inputting the pitch in Example 11 and clicking <em>check outpu</em><em>t</em> calculates information about the space between them: the ratio, size in cents, frequency difference (difference tone / beating speed) and HD.
+	<br><br>
+	<center><em>Example 10</em></center>
+	<img src="ex_10.jpg" style="width:450px;" class="center">
+	<br><br>
+	<center><em>Example 11</em></center>
+	<img src="ex_11.jpg" style="width:490px;" class="center">
+	<br><br>
+	<h2>23-LIMIT AUTO-NORMALISED ENHARMONIC PITCH-CLASS COMPARISON</h2>
+	The 23-Limit Auto-Normalised Enharmonic Pitch-Class Comparison feature allows a user to search a database generated by Marc Sabat of approximately 25000 pitch-classes for possible respellings of a given input. The database consists of intervals expressible in terms of a string of no more than three HE accidentals. The accidentals range from double-flats through double-sharps, modified by at most three syntonic commas, two septimal and undecimal commas, and/or single commas in all other prime dimensions of harmonic space. The search finds ratios whose cent values fall within a specified range around the input.<br>
+	Target cent values between 0 and 1200 may be entered into the cent input box. Alternately, they may be automatically transferred from either the current calculator output or the current melodic step value. If frequency input is selected, the chosen Hz value will be evaluated as a rational interval measured from the reference frequency (1/1). In this way, complex intervals may be tested to find close rational approximations. All intervals larger than 2/1 are automatically normalised.<br>
+	The output list, which is generated by clicking "search", may be filtered by a number of parameters, such as:
+	<ul>
+		<li>which primes to include (default = 13-limit)</li>
+		<li>the search range around the target value (default = 8 cents)</li>
+		<li>minimum and maximum allowable Harmonic Distance values from the reference note (default range = between 0 and 20)</li>
+		<li>the size of the output list (default = 48)</li>
+		<li>the maximum number of accidentals needed to express a note (default = 2)</li>
+		<li>whether the list is ordered by increasing Harmonic Distance values or increasing absolute value cent deviations from the target note (default = sort by HD)</li>
+	</ul>
+	The resulting list is a sub-database of all the enharmonic pitches that meet the the user defined parameters. The following data is displayed for each note: 
+	<ul>
+		<li>octave reduced 23-limit monzo</li>
+		<li>ratio</li>
+		<li>interval cents (from reference 1/1)</li>
+		<li>amount by which it differs from the target note in cents</li>
+		<li>Harmonic Distance (from reference 1/1)</li>
+		<li>HE notation</li>
+	</ul>
+	<br>
+	<br>
+	For a version of this calculator adapted by Kite Giedraitis for his Color Notation, visit <a href="http://tallkite.com/misc_files/HEJI-Calc-colors.html" target=_blank>his website</a>.
+</body>
+</html>
