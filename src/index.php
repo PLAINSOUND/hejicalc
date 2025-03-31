@@ -441,10 +441,6 @@
             <br>
             <b><div id="monzoMelodic" value="0">0,0,0,0,0,0,0,0,0,0,0</div></b>
             <b><div id="over31MessageMelodic" value="0"></div></b>
-			<div class="output-content">
-			<em>melodic ratio in EDO steps + error </em><br>
-			<b><div style="display: inline;" id="edoStepsMelodic" value="0">0</div>\<div style="display: inline;" id="edoSizeMelodic" value="53">53</div>&nbsp;&nbsp;<div style="display: inline;" id="edoCentDeviationMelodic" value="0">0</div> cents</b>
-			</div>
 	    </div>
 
         <div class="scalabox">
