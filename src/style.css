@@ -1,21 +1,39 @@
 
 @font-face {
     font-family: "HEJI2Text";
-    src: url("HEJI2Text.otf") format("opentype");
+    src: url("fonts/HEJI2Text.otf") format("opentype");
 }
 @font-face {
     font-family: "HEJI2";
-    src: url("HEJI2.otf") format("opentype");
+    src: url("fonts/HEJI2.otf") format("opentype");
 }
 @font-face {
     font-family: "HEJI2Bravura";
-    src: url("HEJI2Bravura.otf") format("opentype");
+    src: url("fonts/HEJI2Bravura.otf") format("opentype");
+}
+@font-face {
+    font-family: "Plainsound Text";
+    src: url("fonts/PlainsoundText-Regular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Plainsound Text";
+    src: url("fonts/PlainsoundText-Bold.otf") format("opentype");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Plainsound Text";
+    src: url("fonts/PlainsoundText-Italic.otf") format("opentype");
+    font-weight: normal;
+    font-style: italic;
 }
 
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Plainsound Text', sans-serif;
 }
 
 html {
@@ -58,14 +76,14 @@ body {
 
 h1 {
     color: var(--color-text);
-    font-weight: 400;
+    font-weight: bold;
     font-size: 1.6rem;
     padding-bottom: 0.33rem;
     letter-spacing: 0.05rem;
 }
 
 h1 > span {
-    font-weight: 300;
+    font-weight: bold;
 }
 
 h2 {

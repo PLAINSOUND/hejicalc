@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HS CALC | basic</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,400i,700" rel="stylesheet"> 
+    <title>HARMONIC SPACE CALCULATOR</title>
+    
     <link rel="shortcut icon" type="image/icon" href="../images/plainsound_favicon.png"/>
     <link href="style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,10 +21,10 @@
 </head>
 <body onload="sendA();preferences();">
     <div class="header">
-		<h1>Plainsound Harmonic Space Calculator <span>| basic</span></h1>
+		<h1>PLAINSOUND HARMONIC SPACE CALCULATOR</h1>
 		<span><a href="hscalc_userguide.pdf" target=_blank>USER GUIDE</a></span>
 		<br>
-		<input type="checkbox" id="theme"> <strong> dark theme</strong></input>
+		<input type="checkbox" id="theme"> <b> dark theme</b></input>
     </div>
 
     <div class="precision">
@@ -42,7 +42,7 @@
 
     <div class="calc-container">
         <div class="refbox">
-            <h3><strong>REFERENCE</strong><br>pitch class & Hz of 1/1</h3>
+            <h3><b>REFERENCE</b><br>pitch class & Hz of 1/1</h3>
             <br>
             <em>octave (SPN)</em>
             <br>
@@ -82,18 +82,13 @@
             <br>
             <em>frequency of tempered A4 on meter</em><br>
             <input type="number" id="frequencyA4" value="440.000000"></input><br>
-            <br><br>
-			<h2>EDO cross-comparison</h2><br>
-			<em># of equal steps per octave</em><br>
-			<input type="number" class="edo" id="edoQuantisation" min="1" step="1" value="53"></input>
-			<br>
 			<br>
 			<br>
             <button id="clearFreq" class="clear" onclick="clearFreq()">reset refs</button>
         </div>
 
         <div class="palettebox">
-            <h2>INPUT<br><input type="radio" name="inputType" id="paletteInput" checked> HEJI 2020 notation palette</h2>
+            <h3><b>INPUT 1</b><br><input type="radio" name="inputType" id="paletteInput" checked> HEJI notation</h3>
             <br>
 			<div class="palette">
 				<h2></h2>
@@ -267,7 +262,7 @@
 		</div>
 
 		<div class="ratiobox">
-			<h3><strong>INPUT<br><input type="radio" name="inputType" id="ratioInput"> JI ratio</strong> (input × offset)</h3>
+			<h3><b>INPUT 2</b><br><input type="radio" name="inputType" id="ratioInput"> JI ratio (input × offset)</h3>
             <br>
 			<em>offset ratio</em>
 			<br>
@@ -304,9 +299,8 @@
         </div>
 
         <div class="outputbox">
-            <h2>OUTPUT
-            <br>
-            <input type="checkbox" name="inputType" id="normalize"> normalise</h2>
+            <h3><b>OUTPUT</b><br>
+            <input type="checkbox" name="inputType" id="normalize"> normalise</h3>
             <br>
 			<em>HEJI notation</em>
             <em><div id="undefinedNotation"></div></em>
@@ -323,25 +317,21 @@
 				<em>tuning meter read-out</em>
 				<br>
 				<div id="midiNote"></div>
-				<strong><div id="cents" value="0"></div></strong>
+				<b><div id="cents" value="0"></div></b>
 			</div>
 			<div class="output-content">
 	            <em>frequency</em>
-	            <strong><div type="text" id="frequency" value="440"></div></strong>
+	            <b><div type="text" id="frequency" value="440"></div></b>
 	            <em>cents from reference</em>
-	            <strong><div id="JIgross" value="0">0</div></strong>
+	            <b><div id="JIgross" value="0">0</div></b>
 	            <em>Tenney harmonic distance (HD)</em>
 	            <br>
-	            <strong><div id="hd" value="0">0</div></strong>
+	            <b><div id="hd" value="0">0</div></b>
 	            <em>harmonic space coordinates (monzo)</em>
 	            <br>
-	            <strong><div id="monzo" value="0">0,0,0,0,0,0,0,0,0,0,0</div></strong>
-	            <strong><div id="over31Message" value="0"></div></strong>
+	            <b><div id="monzo" value="0">0,0,0,0,0,0,0,0,0,0,0</div></b>
+	            <b><div id="over31Message" value="0"></div></b>
        		</div>
-            <div class="output-content">
-            	<em>ratio in EDO steps + error </em><br>
-				<strong><div style="display: inline;" id="edoSteps" value="0">0</div>\<div style="display: inline;" id="edoSize" value="53">53</div>&nbsp;&nbsp;<div style="display: inline;" id="edoCentDeviation" value="0">0</div> cents</strong>
-			</div>
             <h2 class="software">software pitch bends</h2>
             <p>from
 			<select id="bendParameter" class="bendParameter">
@@ -372,7 +362,7 @@
 					<em>command</em>
 				</div>
 				<div class="bend">
-					<strong><div id="sibelius_bend" value="~B 0,64">~B 0,64</div></strong>
+					<b><div id="sibelius_bend" value="~B 0,64">~B 0,64</div></b>
 				</div> 
 			</div>
 			<div class="pbrange">
@@ -397,7 +387,7 @@
 					<em>value</em>
 				</div>
 				<div class="bend">
-					<strong><div id="xbend" value="8192"></div></strong>
+					<b><div id="xbend" value="8192"></div></b>
 				</div> 
 			</div>
 			<div class="pbrange">
@@ -408,13 +398,13 @@
 					<em>cent value</em>
 				</div>
 				<div class="bend">
-					<strong><div id="musescore_cents" value="0"></div></strong>
+					<b><div id="musescore_cents" value="0"></div></b>
 				</div> 
             </div>
         </div>
 
         <div class="melodicbox">
-            <h3><strong>MELODIC DISTANCE</strong><br>from ratio I to ratio II</h3>
+            <h3><b>MELODIC DISTANCE</b><br>from ratio I to ratio II</h3>
             <br>
             <em>ratio I</em>
 			<br>
@@ -440,20 +430,20 @@
 			<p style="margin-bottom:-3px;"></p>
 			<em>melodic step in cents</em>
 			<br>
-			<strong><div id="melodicCents">0.00</div></strong>
+			<b><div id="melodicCents">0.00</div></b>
 			<em>frequency difference</em>
 			<br>
-			<strong><div id="freqDiff">0.000000</div></strong>
+			<b><div id="freqDiff">0.000000</div></b>
 			<em>Tenney harmonic distance (HD)</em>
 			<br>
-			<strong><div id="melodicHD">0.000000</div></strong>
+			<b><div id="melodicHD">0.000000</div></b>
 			<em>harmonic space coordinates (monzo)</em>
             <br>
-            <strong><div id="monzoMelodic" value="0">0,0,0,0,0,0,0,0,0,0,0</div></strong>
-            <strong><div id="over31MessageMelodic" value="0"></div></strong>
+            <b><div id="monzoMelodic" value="0">0,0,0,0,0,0,0,0,0,0,0</div></b>
+            <b><div id="over31MessageMelodic" value="0"></div></b>
 			<div class="output-content">
 			<em>melodic ratio in EDO steps + error </em><br>
-			<strong><div style="display: inline;" id="edoStepsMelodic" value="0">0</div>\<div style="display: inline;" id="edoSizeMelodic" value="53">53</div>&nbsp;&nbsp;<div style="display: inline;" id="edoCentDeviationMelodic" value="0">0</div> cents</strong>
+			<b><div style="display: inline;" id="edoStepsMelodic" value="0">0</div>\<div style="display: inline;" id="edoSizeMelodic" value="53">53</div>&nbsp;&nbsp;<div style="display: inline;" id="edoCentDeviationMelodic" value="0">0</div> cents</b>
 			</div>
 	    </div>
 
@@ -470,7 +460,7 @@
 			<button id="clearScala" class="clearMelodic" onclick="clearScala()">reset</button><br><br>
 
 			<em>current # of pitches</em><br>
-			<strong><div id="scalaPitches">1</div></strong>
+			<b><div id="scalaPitches">1</div></b>
 			<button id="getMelodic" class="getMelodic" onclick="scalaPreview()">preview</button>
 
 			<br><br>
@@ -481,7 +471,7 @@
 
 			<a href='#' id="downloadlink">download file</a><br><br>
             
-			<strong>Note:</strong><br>
+			<b>Note:</b><br>
 			1/1 is implicit in the Scala file format;<br>
 			input pitches are automatically normalised<br>
 			and sorted, thus scales are octave-repeating.
@@ -579,11 +569,11 @@
     <br><br>
 	<footer>
 		<p>
-			<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target=_blank>cc</a> 2018&ndash;2020 Thomas Nicholson, Version 3.0 (2020-06-26)
+			<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target=_blank>cc</a> 2018&ndash;2020 Thomas Nicholson, Version 3.5 (2025.04)
 			<br>
 			developed in collaboration with Marc Sabat and Rafa&#322; Rawicki
 			<br>
-			provided through <a href="http://plainsound.org/" target=_blank>plainsound.org</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<i>HS CALC</i> | <i>pro</i> coming soon!
+			provided through <a href="https://www.plainsound.org/" target=_blank>PLAINSOUND</a>
 		</p>
 	</footer>    
 </body>

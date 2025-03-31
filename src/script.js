@@ -93,7 +93,7 @@ function getArray(integer){ // get prime factorization of integer, output array 
 const primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]; // prime integers 3-31
 const reference = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];  // harmonic space coordinates of 1/1 = 
 const autoOffsetToA = [4,-3,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
-const tonalIdentity = [0,1,4,-2,-1,3,7,-3,6,-2,0,2,4,-1,6]; // distance in fifths for each prime partial
+const tonalIdentity = [0,1,4,-2,-1,3,7,-3,6,-2,0,2,4,-1,1]; // distance in fifths for each prime partial
 const negIdentity = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
 
 // Reference pitch harmonic space coordinates, spelling  (NB: all opposite sign)
@@ -150,7 +150,7 @@ const octave = [
 const notes = [ // the diatonic note
 [2,-1,0,0,0,0,0,0,0,0,0,0,0,0,0], // F
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], // C
-[-1,1,0,0,0,0,0,0,0,0,0,0,0,0,0], //G
+[-1,1,0,0,0,0,0,0,0,0,0,0,0,0,0], // G
 [-3,2,0,0,0,0,0,0,0,0,0,0,0,0,0], // D
 [-4,3,0,0,0,0,0,0,0,0,0,0,0,0,0], // A
 [-6,4,0,0,0,0,0,0,0,0,0,0,0,0,0], // E
@@ -168,27 +168,27 @@ const chromatic = [
 const syntonic = [ // 81:80
 [12,-12,3,0,0,0,0,0,0,0,0,0,0,0,0],
 [8,-8,2,0,0,0,0,0,0,0,0,0,0,0,0],
-[4,-4,1,0,0,0,0,0,0,0,0,0,0,0,0],
+[4,-4,1,0,0,0,0,0,0,0,0,0,0,0,0], // o5 (lowering)
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[-4,4,-1,0,0,0,0,0,0,0,0,0,0,0,0],
+[-4,4,-1,0,0,0,0,0,0,0,0,0,0,0,0], // u5 (raising)
 [-8,8,-2,0,0,0,0,0,0,0,0,0,0,0,0],
 [-12,12,-3,0,0,0,0,0,0,0,0,0,0,0,0]
 ];
 const septimal = [ // 64:63
 [-18,6,0,3,0,0,0,0,0,0,0,0,0,0,0],
 [-12,4,0,2,0,0,0,0,0,0,0,0,0,0,0],
-[-6,2,0,1,0,0,0,0,0,0,0,0,0,0,0],
+[-6,2,0,1,0,0,0,0,0,0,0,0,0,0,0], // o7 (lowering)
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[6,-2,0,-1,0,0,0,0,0,0,0,0,0,0,0],
+[6,-2,0,-1,0,0,0,0,0,0,0,0,0,0,0], // u7 (raising)
 [12,-4,0,-2,0,0,0,0,0,0,0,0,0,0,0],
 [18,-6,0,-3,0,0,0,0,0,0,0,0,0,0,0]
 ];
 const undecimal = [ // 33:32
 [15,-3,0,0,-3,0,0,0,0,0,0,0,0,0,0],
 [10,-2,0,0,-2,0,0,0,0,0,0,0,0,0,0],
-[5,-1,0,0,-1,0,0,0,0,0,0,0,0,0,0],
+[5,-1,0,0,-1,0,0,0,0,0,0,0,0,0,0], // u11 (lowering)
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[-5,1,0,0,1,0,0,0,0,0,0,0,0,0,0],
+[-5,1,0,0,1,0,0,0,0,0,0,0,0,0,0], // o11 (raising)
 [-10,2,0,0,2,0,0,0,0,0,0,0,0,0,0],
 [-15,3,0,0,3,0,0,0,0,0,0,0,0,0,0]
 ];
@@ -264,7 +264,7 @@ const fortyOne = [ // 82:81
 [2,-8,0,0,0,0,0,0,0,0,0,0,2,0,0],
 [3,-12,0,0,0,0,0,0,0,0,0,0,3,0,0]
 ];
-const fortyThree = [ // 129/128
+const fortyThree = [ // 129:128
 [21,-3,0,0,0,0,0,0,0,0,0,0,0,-3,0],
 [14,-2,0,0,0,0,0,0,0,0,0,0,0,-2,0],
 [7,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0],
@@ -273,14 +273,14 @@ const fortyThree = [ // 129/128
 [-14,2,0,0,0,0,0,0,0,0,0,0,0,2,0],
 [-21,3,0,0,0,0,0,0,0,0,0,0,0,3,0]
 ];
-const fortySeven = [ // 752/729
-[-12,18,0,0,0,0,0,0,0,0,0,0,0,0,-3],
-[-8,12,0,0,0,0,0,0,0,0,0,0,0,0,-2],
-[-4,6,0,0,0,0,0,0,0,0,0,0,0,0,-1],
+const fortySeven = [ // 48:47
+[-12,-3,0,0,0,0,0,0,0,0,0,0,0,0,3],
+[-8,-2,0,0,0,0,0,0,0,0,0,0,0,0,2],
+[-4,-1,0,0,0,0,0,0,0,0,0,0,0,0,1], // lowering
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[4,-6,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[8,-12,0,0,0,0,0,0,0,0,0,0,0,0,2],
-[12,-18,0,0,0,0,0,0,0,0,0,0,0,0,3]
+[4,1,0,0,0,0,0,0,0,0,0,0,0,0,-1], // raising
+[8,2,0,0,0,0,0,0,0,0,0,0,0,0,-2],
+[12,3,0,0,0,0,0,0,0,0,0,0,0,0,-3]
 ];
 
 // Character mappings for HEJI2Bravura font
@@ -695,7 +695,7 @@ $(document).ready(function(){
 		edoQuantisation = $(this).val();
 		$("#edoSize").text(edoQuantisation);
 		$("#edoSizeMelodic").text(edoQuantisation);
-		getEDOSteps();
+		//getEDOSteps();
 	});
 	$("#savedNum").change(function(c){
 		savedNum = $(this).val();
@@ -726,7 +726,7 @@ $(document).ready(function(){
 	$("#refFrequencyLinkedRadio").click(function(c){
 		getFrequencyKammerTon();
 		getOutputFrequency();
-		getEDOSteps();
+		//getEDOSteps();
 		getCentDeviation();
 		getPC();
 	})
@@ -1038,7 +1038,7 @@ function getCentDeviation(){ //calculate cent deviation, interval to ref (correc
 	} else{
 		$("#JIgross").text(cents_toRef.toFixed(precision) + " cents");
 	}
-	getEDOSteps();
+	//getEDOSteps();
 }
 
 function getOutputFrequency(){
@@ -1163,7 +1163,7 @@ function getMelodicRatio(){
 	}
 	$("#over31MessageMelodic").text(monzoMessageMelodic);
 
-	var edoStepsMelodic = Math.round(melodicCents / (1200 / edoQuantisation));
+	/*var edoStepsMelodic = Math.round(melodicCents / (1200 / edoQuantisation));
 	var edoCentDeviationMelodic = melodicCents - (edoStepsMelodic * (1200 / edoQuantisation));
 	if ($("#normalize").prop("checked")) {
 		edoStepsMelodic = edoStepsMelodic % edoQuantisation;
@@ -1178,7 +1178,7 @@ function getMelodicRatio(){
 		$("#edoCentDeviationMelodic").text("±"+edoCentDeviationMelodic.toFixed(precision));
 	} else {
 		$("#edoCentDeviationMelodic").text(edoCentDeviationMelodic.toFixed(precision));
-	}
+	}*/
 }
 
 // clear all values stored in calc other than reference information
@@ -1223,7 +1223,7 @@ function clearFreq(){
 	$("#defaultRefAccidental").click();	
 	$("#refFrequencyLinkedRadio").click();
 	getOutputFrequency();
-	getEDOSteps();
+	//getEDOSteps();
 }
 
 // Load page with A-natural "input"
@@ -1251,7 +1251,7 @@ function sendA(){
 	getCurrentPitch();
 	getMelodicRatio();
 	getBend();
-	getEDOSteps();
+	//getEDOSteps();
 }
 
 // get HE notation output 
@@ -1722,6 +1722,7 @@ function getBend() {
 	} 
 }
 
+/*
 function getEDOSteps() {
 	// step(s) in EDO / cent deviation
 	// ALWAYS PRESENT
@@ -1743,6 +1744,7 @@ function getEDOSteps() {
 		$("#edoCentDeviation").text(edoCentDeviation.toFixed(precision));
 	}
 }
+	*/
 
 function getEnharmonics(){ //search for enharmonic proximities
 	empty();
@@ -2469,7 +2471,7 @@ function wipeEnharmonics(){
 	getEnharmonics();
 }
 
-
+/*
 // SCALA GENERATION
 
 var scalaArray = [];
@@ -2580,3 +2582,4 @@ function updateDescription () {
 	scalaDescription = document.getElementById("scalaDescription").value;
 	alert("Description was updated for "+filename+".scl !");
 }
+*/
