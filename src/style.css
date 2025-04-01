@@ -286,6 +286,7 @@ button.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .ni
     color: var(--color-text);
     font-size: 1.5rem;
     text-decoration:underline;
+    text-underline-offset: 0.175rem;
 }
 
 #den {

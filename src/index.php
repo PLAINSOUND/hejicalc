@@ -246,7 +246,7 @@
 				--><button class="fortyThree" value="6">ééé</button>
 				<span class="label">43°
 				<br>
-				<span class="label">u47
+				<span class="label">47°
 					<button class="fortySeven" value="0">&#xee5a;&#xee5a;&#xee5a;</button><!-- 
 				--><button class="fortySeven" value="1">&#xee5a;&#xee5a;</button><!-- 
 				--><button class="fortySeven" value="2">&#xee5a;</button><!-- 
@@ -254,7 +254,7 @@
 				--><button class="fortySeven" value="4">&#xee5b;</button><!-- 
 				--><button class="fortySeven" value="5">&#xee5b;&#xee5b;</button><!-- 
 				--><button class="fortySeven" value="6">&#xee5b;&#xee5b;&#xee5b;</button>
-				<span class="label">47°
+				<span class="label">u47
 				<br>
             </div>
 		</div>
