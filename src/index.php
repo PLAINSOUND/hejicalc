@@ -128,7 +128,7 @@
 				--><button class="chromatic" value="5">V</button><!-- 
 				--><button class="chromatic" value="6">vV</button> 
 				<br>
-				<span class="label">5o
+				<span class="label">5°
 					<button class="syntonic" value="0">$</button><!-- 
 				--><button class="syntonic" value="1">%</button><!-- 
 				--><button class="syntonic" value="2">&</button><!-- 
@@ -138,7 +138,7 @@
 				--><button class="syntonic" value="6">#</button>
 				<span class="label">u5
 				<br>
-				<span class="label">7o
+				<span class="label">7°
 					<button class="septimal" value="0"><,</button><!--
 				--><button class="septimal" value="1">,</button><!-- 
 				--><button class="septimal" value="2"><</button><!-- 
@@ -156,9 +156,9 @@
 				--><button class="undecimal" value="4">4</button><!-- 
 				--><button class="undecimal" value="5">44</button><!--
 				--><button class="undecimal" value="6">444</button>
-				<span class="label">11o
+				<span class="label">11°
 				<br>
-				<span class="label">13o
+				<span class="label">13°
 					<button class="tridecimal" value="0">000</button><!-- 
 				--><button class="tridecimal" value="1">00</button><!-- 
 				--><button class="tridecimal" value="2">0</button><!-- 
@@ -168,7 +168,7 @@
 				--><button class="tridecimal" value="6">999</button>
 				<span class="label">u13
 				<br>
-				<span class="label">17o
+				<span class="label">17°
 					<button class="seventeen" value="0">:::</button><!-- 
 				--><button class="seventeen" value="1">::</button><!-- 
 				--><button class="seventeen" value="2">:</button><!-- 
@@ -186,7 +186,7 @@
 				--><button class="nineteen" value="4">/</button><!-- 
 				--><button class="nineteen" value="5">//</button><!--
 				--><button class="nineteen" value="6">///</button>
-				<span class="label">19o
+				<span class="label">19°
 				<br>
 				<span class="label">u23
 					<button class="twentyThree" value="0">666</button><!-- 
@@ -196,7 +196,7 @@
 				--><button class="twentyThree" value="4">3</button><!-- 
 				--><button class="twentyThree" value="5">33</button><!-- 
 				--><button class="twentyThree" value="6">333</button> 
-				<span class="label">23o
+				<span class="label">23°
 				<br>
 				<span class="label">u29
 					<button class="twentyNine" value="0">777</button><!-- 
@@ -206,9 +206,9 @@
 				--><button class="twentyNine" value="4">2</button><!-- 
 				--><button class="twentyNine" value="5">22</button><!-- 
 				--><button class="twentyNine" value="6">222</button> 
-				<span class="label">29o
+				<span class="label">29°
 				<br>
-				<span class="label">31o
+				<span class="label">31°
 					<button class="thirtyOne" value="0">111</button><!-- 
 				--><button class="thirtyOne" value="1">11</button><!-- 
 				--><button class="thirtyOne" value="2">1</button><!-- 
@@ -226,7 +226,7 @@
 				--><button class="thirtySeven" value="4">á</button><!-- 
 				--><button class="thirtySeven" value="5">áá</button><!-- 
 				--><button class="thirtySeven" value="6">ááá</button>
-				<span class="label">37o
+				<span class="label">37°
 				<br>
 				<span class="label">u41
 					<button class="fortyOne" value="0">---</button><!-- 
@@ -236,7 +236,7 @@
 				--><button class="fortyOne" value="4">+</button><!-- 
 				--><button class="fortyOne" value="5">++</button><!-- 
 				--><button class="fortyOne" value="6">+++</button>
-				<span class="label">41o
+				<span class="label">41°
 				<br>
 				<span class="label">u43
 					<button class="fortyThree" value="0">èèè</button><!-- 
@@ -246,7 +246,7 @@
 				--><button class="fortyThree" value="4">é</button><!-- 
 				--><button class="fortyThree" value="5">éé</button><!-- 
 				--><button class="fortyThree" value="6">ééé</button>
-				<span class="label">43o
+				<span class="label">43°
 				<br>
 				<span class="label">u47
 					<button class="fortySeven" value="0">&#xee5a;&#xee5a;&#xee5a;</button><!-- 
@@ -256,7 +256,7 @@
 				--><button class="fortySeven" value="4">&#xee5b;</button><!-- 
 				--><button class="fortySeven" value="5">&#xee5b;&#xee5b;</button><!-- 
 				--><button class="fortySeven" value="6">&#xee5b;&#xee5b;&#xee5b;</button>
-				<span class="label">47o
+				<span class="label">47°
 				<br>
             </div>
 		</div>

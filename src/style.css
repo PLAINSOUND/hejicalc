@@ -7,10 +7,10 @@
     font-family: "HEJI2";
     src: url("fonts/HEJI2.otf") format("opentype");
 }
-@font-face {
+/*@font-face {
     font-family: "HEJI2Bravura";
     src: url("fonts/HEJI2Bravura.otf") format("opentype");
-}
+}*/
 @font-face {
     font-family: "Plainsound Text";
     src: url("fonts/PlainsoundText-Regular.otf") format("opentype");
@@ -296,7 +296,7 @@ button.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .ni
 
 .noteName{
     color: var(--color-text);
-    font-family: "Roboto Condensed";
+    font-family: "Plainsound Text";
     font-size: 2.3rem;
     display: inline;
 }

@@ -283,7 +283,7 @@ const fortySeven = [ // 48:47
 [12,3,0,0,0,0,0,0,0,0,0,0,0,0,-3]
 ];
 
-// Character mappings for HEJI2Bravura font
+// Character mappings for HEJI2 font
 const nat = "n";
 const diatonicOutput = ["F","C","G","D","A","E","B"];
 const fiveDownDownDownDown = ["eI","I","K","M","O","R","vR"];
