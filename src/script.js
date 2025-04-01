@@ -1162,23 +1162,6 @@ function getMelodicRatio(){
 		monzoMessageMelodic = "× ( 1 / " + reducedMelodicRatioRemainder[1] + " )";
 	}
 	$("#over31MessageMelodic").text(monzoMessageMelodic);
-
-	/*var edoStepsMelodic = Math.round(melodicCents / (1200 / edoQuantisation));
-	var edoCentDeviationMelodic = melodicCents - (edoStepsMelodic * (1200 / edoQuantisation));
-	if ($("#normalize").prop("checked")) {
-		edoStepsMelodic = edoStepsMelodic % edoQuantisation;
-		if (edoStepsMelodic < 0) {
-			edoStepsMelodic += edoQuantisation;
-		}
-	}
-	$("#edoStepsMelodic").text(edoStepsMelodic);
-	if (edoCentDeviationMelodic > 0) {
-		$("#edoCentDeviationMelodic").text("+"+edoCentDeviationMelodic.toFixed(precision));
-	} else if (edoCentDeviation == 0) {
-		$("#edoCentDeviationMelodic").text("±"+edoCentDeviationMelodic.toFixed(precision));
-	} else {
-		$("#edoCentDeviationMelodic").text(edoCentDeviationMelodic.toFixed(precision));
-	}*/
 }
 
 // clear all values stored in calc other than reference information
@@ -1721,30 +1704,6 @@ function getBend() {
 		$("#musescore_cents").text(centDeviation.toFixed(2));
 	} 
 }
-
-/*
-function getEDOSteps() {
-	// step(s) in EDO / cent deviation
-	// ALWAYS PRESENT
-	var edoStepCents = 1200 / edoQuantisation;
-	var edoSteps = Math.round(cents_toRef / edoStepCents);
-	var edoCentDeviation = cents_toRef - (edoSteps * edoStepCents);
-	if ($("#normalize").prop("checked")) {
-		edoSteps = edoSteps % edoQuantisation;
-		if (edoSteps < 0) {
-			edoSteps += edoQuantisation;
-		}
-	}
-	$("#edoSteps").text(edoSteps);
-	if (edoCentDeviation > 0) {
-		$("#edoCentDeviation").text("+"+edoCentDeviation.toFixed(precision));
-	} else if (edoCentDeviation == 0) {
-		$("#edoCentDeviation").text("±"+edoCentDeviation.toFixed(precision));
-	} else {
-		$("#edoCentDeviation").text(edoCentDeviation.toFixed(precision));
-	}
-}
-	*/
 
 function getEnharmonics(){ //search for enharmonic proximities
 	empty();
@@ -2470,116 +2429,3 @@ function wipeEnharmonics(){
 	document.getElementById("data").innerHTML = html;	
 	getEnharmonics();
 }
-
-/*
-// SCALA GENERATION
-
-var scalaArray = [];
-var scalaArrayText = ""; 
-var blob; 
-var scalaArrayLength = 1;
-var scalaArrayFormatted = null;
-var scalaDisplayRatios = [];
-var filename = document.getElementById("filename").value;
-var scalaDescription = document.getElementById("scalaDescription").value;
-
-function pushScala() {
-	var normTest = Math.log2(Math.abs(displayNumValue / displayDenValue));
-	if (normTest < 0){
-		normTest = 1 + Math.floor(Math.abs(normTest));
-		normTest = Math.pow(2,normTest);
-		displayNumValue = normTest * displayNumValue;
-	} else if (normTest > 1) {
-		normTest = Math.floor(normTest);
-		normTest = Math.pow(2,normTest);
-		displayDenValue = normTest * displayDenValue;
-	}
-	var reduceNormalized = reduce(displayNumValue,displayDenValue);
-	var scalaNum = reduceNormalized[0];
-	var scalaDen = reduceNormalized[1];
-	var scalaDecimal = scalaNum / scalaDen;
-
-	if (scalaNum / scalaDen == 1) {
-		alert("1/1 is implicit in the Scala file format !");
-	} else if (scalaNum / scalaDen !== 1 && (scalaArray.flat()).includes(scalaDecimal) == false) {
-		var scalaRatio = new Array();
-		scalaRatio[0] = scalaNum;
-		scalaRatio[1] = scalaDen;
-		scalaRatio[2] = scalaDecimal;
-		scalaRatio[3] = scalaNum.toString()+"/"+scalaDen.toString();
-
-		scalaArray.push(scalaRatio); 
-
-		scalaArray.sort(function(a,b) {
-    		return a[2]-b[2]
-		});
-		alert(scalaRatio[3]+" was added to "+filename+".scl !");
-		formatScala();
-	} else {
-		alert(scalaNum+"/"+scalaDen+" is already in "+filename+".scl !");
-	}
-}
-
-function formatScala() {
-	scalaDisplayRatios = [];
-	for (var i = 0; i < scalaArray.length; i++) {
-		scalaDisplayRatios.push(scalaArray[i][3]);
-	}
-
-	scalaArrayFormatted = scalaDisplayRatios.join("\n ");
-	scalaArrayLength = scalaArray.length + 1;
-	scalaPitches.innerHTML = scalaArrayLength;
-
-	scalaArrayText = scalaArray.toString(); 	
-	var scalaHeader = "! "+filename+".scl\n!\n! Created with the Helmholtz-Ellis 31-Limit Harmonic Space Calculator\n! www.plainsound.de/HEJI/\n!\n"+scalaDescription+"\n "+scalaArrayLength+"\n!\n ";
-  	blob = new Blob([scalaHeader+scalaArrayFormatted+"\n 2/1"], {type: 'text/plain'});
-  	downloadlink.download = filename+".scl";
-  	downloadlink.href = URL.createObjectURL(blob);
-}
-
-function clearScala() {
-	scalaArray = [];
-	scalaDisplayRatios = [];
-	scalaArrayFormatted = null;
-	scalaArrayLength = 1;
-	scalaPitches.innerHTML = scalaArrayLength;
-	alert(filename+".scl is empty !");
-}
-
-function scalaPreview() {
-	if (scalaArray.length == 0) {
-		alert(filename+".scl is empty !");
-	} else {
-		alert(filename+".scl contains this scale :\n "+scalaArrayFormatted+"\n 2/1");
-	}
-}
-
-function removeScala() {
-	var removeFromScale = document.getElementById("removeScala").value;
-	if ((scalaArray.flat()).includes(removeFromScale)) {
-		for (var i = 0; i < scalaArray.length; i++) {
-			if (scalaArray[i][3] === removeFromScale) {
-				scalaArray.splice(i, 1);
-				formatScala();
-				if (scalaArray.length == 0) {
-					alert(removeFromScale+" was removed from "+filename+".scl !\n"+filename+".scl is now empty !");
-				} else {
-					alert(removeFromScale+" was removed from "+filename+".scl !");
-				}
-			}
-		}
-	} else {
-		alert(removeFromScale+" is not in "+filename+".scl !");
-	}
-}
-
-function updateFilename () {
-	filename = document.getElementById("filename").value;
-	alert("Scala file was renamed "+filename+".scl !");
-}
-
-function updateDescription () {
-	scalaDescription = document.getElementById("scalaDescription").value;
-	alert("Description was updated for "+filename+".scl !");
-}
-*/

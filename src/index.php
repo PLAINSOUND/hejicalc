@@ -46,8 +46,7 @@
             <br>
             <em>octave (SPN)</em>
             <br>
-               <button class="refOctave" value="0">-5</button><!--
-            --><button class="refOctave" value="1">-4</button><!--
+               <button class="refOctave" value="1">-4</button><!--
             --><button class="refOctave" value="2">-3</button><!--
             --><button class="refOctave" value="3">-2</button><!--
             --><button class="refOctave" value="4">-1</button><!--
@@ -94,8 +93,7 @@
 				<h2></h2>
 				<em>octave (SPN)</em>
 				<br>
-					<button class="octave" value="0">-5</button><!--
-				--><button class="octave" value="1">-4</button><!--
+					<button class="octave" value="1">-4</button><!--
 				--><button class="octave" value="2">-3</button><!--
 				--><button class="octave" value="3">-2</button><!--
 				--><button class="octave" value="4">-1</button><!--
