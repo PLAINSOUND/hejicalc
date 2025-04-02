@@ -309,7 +309,7 @@ const fortyThreeSymbols = ["èèè","èè","è","","é","éé","ééé"];
 const fortySevenSymbols = ["&#xee5b;&#xee5b;&#xee5b;","&#xee5b;&#xee5b;","&#xee5b;","","&#xee5a;","&#xee5a;&#xee5a;","&#xee5a;&#xee5a;&#xee5a;"];
 
 // Print-out of closest MIDI note (12-ED2)
-const refMidiNote = ["C", "C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"];
+const refMidiNote = ["*ntC", "*stD | *ftE","*ntD","*stD | *ftE","*ntE","*ntF","*stF | *ftG","*ntG","*stG | *ftA","*ntA","*stA | *ftB","*ntB"];
 
 // Global Variables
 var numValue = 1; 

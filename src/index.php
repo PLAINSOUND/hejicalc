@@ -42,9 +42,9 @@
 
     <div class="calc-container">
         <div class="refbox">
-            <h3><b>REFERENCE</b><br>pitch class & Hz of 1/1</h3>
+            <h3><b>REFERENCE PITCH</b><br>notation & frequency of 1/1</h3>
             <br>
-            <em>octave (SPN)</em>
+            <em>octave (Middle C = C4)</em>
             <br>
                <button class="refOctave" value="1">-4</button><!--
             --><button class="refOctave" value="2">-3</button><!--
@@ -58,7 +58,7 @@
             --><button class="refOctave" value="10">5</button><!--
             --><button class="refOctave" value="11">6</button><!--
             --><button class="refOctave" value="12">7</button><br>
-            <em>tempered diatonic pitch</em><br>
+            <em>12edo diatonic note</em><br>
                <button class="refNote" value="0">F</button><!--
             --><button class="refNote" value="1">C</button><!--
             --><button class="refNote" value="2">G</button><!--
@@ -66,7 +66,7 @@
             --><button id="defaultRefNote" class="refNote selected" value="4">A</button><!--
             --><button class="refNote" value="5">E</button><!--
             --><button class="refNote" value="6">B</button><br>
-            <em>tempered accidental</em><br>
+            <em>12edo accidental</em><br>
                <button id="refflat" class="refAccidental" value="0">a</button><!--
             --><button id="defaultRefAccidental" class="refAccidental selected" value="1">j</button><!--
             --><button id="refsharp" class="refAccidental" value="2">z</button><br>
@@ -74,16 +74,16 @@
             <em>1/1 frequency (Hz)</em><br>
             <input type="number" id="1to1Frequency" value="440.000000"></input><br><br>
             <br>
-            <h2>tuning meter setting</h2>
+            <h3>tuning meter setting</h3>
             <br>
             <input type="radio" name="refInput" id="refFrequencyLinkedRadio" checked> <em>1/1 = 0 cents</em><br>
-            <input type="radio" name="refInput" id="refFrequencyFreeRadio"> <em>1/1 cents relative to meter setting</em><br>
+            <input type="radio" name="refInput" id="refFrequencyFreeRadio"> <em>tuning meter A4 frequency = 0 cents</em><br>
             <br>
-            <em>frequency of tempered A4 on meter</em><br>
+            <em>tuning meter A4 frequency</em><br>
             <input type="number" id="frequencyA4" value="440.000000"></input><br>
 			<br>
 			<br>
-            <button id="clearFreq" class="clear" onclick="clearFreq()">reset refs</button>
+            <button id="clearFreq" class="clear" onclick="clearFreq()">reset reference</button>
         </div>
 
         <div class="palettebox">
@@ -91,7 +91,7 @@
             <br>
 			<div class="palette">
 				<h2></h2>
-				<em>octave (SPN)</em>
+				<em>octave</em>
 				<br>
 					<button class="octave" value="1">-4</button><!--
 				--><button class="octave" value="2">-3</button><!--
@@ -106,7 +106,7 @@
 				--><button class="octave" value="11">6</button><!--
 				--><button class="octave" value="12">7</button>
 				<br>
-				<em>Pythagorean diatonic pitch</em>
+				<em>Pythagorean diatonic note</em>
 				<br>
 					<button class="notes" value="0">F</button><!--
 				--><button class="notes" value="1">C</button><!--
@@ -116,7 +116,7 @@
 				--><button class="notes" value="5">E</button><!--
 				--><button class="notes" value="6">B</button> 
 				<br> 
-				<em>Helmholtz-Ellis accidental (HEJI2)</em>
+				<em>HEJI accidentals</em>
 				<br>
 					<button class="chromatic" value="0">eE</button><!-- 
 				--><button class="chromatic" value="1">E</button><!-- 
@@ -312,26 +312,22 @@
 				<div id="den" value="1"></div>
 			</div>
 			<div class="output-content">
-				<em>tuning meter read-out</em>
+				<em>tuning meter</em>
 				<br>
-				<div id="midiNote"></div>
+				<b><div id="midiNote"></div></b>
 				<b><div id="cents" value="0"></div></b>
 			</div>
 			<div class="output-content">
 	            <em>frequency</em>
 	            <b><div type="text" id="frequency" value="440"></div></b>
+			</div>
+			<div class="output-content">
 	            <em>cents from reference</em>
 	            <b><div id="JIgross" value="0">0</div></b>
-	            <em>Tenney harmonic distance (HD)</em>
-	            <br>
-	            <b><div id="hd" value="0">0</div></b>
-	            <em>harmonic space coordinates (monzo)</em>
-	            <br>
-	            <b><div id="monzo" value="0">0,0,0,0,0,0,0,0,0,0,0</div></b>
-	            <b><div id="over31Message" value="0"></div></b>
        		</div>
-            <h2 class="software">software pitch bends</h2>
-            <p>from
+
+            <h3 class="software">software pitch bends</h3>
+            <p>from nearest
 			<select id="bendParameter" class="bendParameter">
 				<option value="1">diatonic</option>
 				<option value="2">chromatic</option> MIDI pitch
@@ -422,23 +418,20 @@
 			<button id="getMelodic" class="getMelodic" onclick="getMelodicCheck()">load output</button>&nbsp;
 			<button id="clearMelodic" class="clearMelodic" onclick="clearMelodic()">reset</button>
 			<br><br>
-			<em>melodic ratio</em>
-			<br>
-			<span style="text-align:center;font-size:16pt" id="melodicDen">1</span> : <span style="text-align:center;font-size:16pt;" id="melodicNum">1</span>
-			<p style="margin-bottom:-3px;"></p>
-			<em>melodic step in cents</em>
-			<br>
-			<b><div id="melodicCents">0.00</div></b>
-			<em>frequency difference</em>
-			<br>
-			<b><div id="freqDiff">0.000000</div></b>
-			<em>Tenney harmonic distance (HD)</em>
-			<br>
-			<b><div id="melodicHD">0.000000</div></b>
-			<em>harmonic space coordinates (monzo)</em>
-            <br>
-            <b><div id="monzoMelodic" value="0">0,0,0,0,0,0,0,0,0,0,0</div></b>
-            <b><div id="over31MessageMelodic" value="0"></div></b>
+			<div class="output-content">
+				<em>melodic ratio</em>
+				<br>
+				<span style="text-align:center;font-size:16pt" id="melodicDen">1</span> : <span style="text-align:center;font-size:16pt;" id="melodicNum">1</span>
+				<p style="margin-bottom:-3px;"></p>
+			</div>
+			<div class="output-content">
+				<em>melodic step in cents</em>
+				<b><div id="melodicCents">0.00</div></b>
+			</div>
+			<div class="output-content">
+				<em>frequency difference</em>			
+				<b><div id="freqDiff">0.000000</div></b>
+			</div>
 	    </div>
 
         <div class="scalabox">
