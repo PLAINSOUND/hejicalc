@@ -22,7 +22,7 @@
 <body onload="sendA();preferences();">
     <div class="header">
 		<h1>PLAINSOUND HARMONIC SPACE CALCULATOR</h1>
-		<span><a href="hscalc_userguide.pdf" target=_blank>USER GUIDE</a></span>
+		<span><a href="Plainsound Harmonic Space Calculator.pdf" target=_blank>USER GUIDE</a></span>
 		<br>
 		<input type="checkbox" id="theme"> <b> dark theme</b></input>
     </div>
