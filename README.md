@@ -47,5 +47,5 @@ Before making input, one of the following two options must be chosen.
 ### 3.1	HEJI Notation
 An input pitch may be defined according to its octave, diatonic note, and HEJI accidental(s). Palette input accidentals allow up to three Pythagorean apotomes (±) and three steps (±) in each of the prime dimensions 5 through 31.
 
-!(HEJIcalc.png)
+![Table of symbols](HEJIcalc.png)
 
