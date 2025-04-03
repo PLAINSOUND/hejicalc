@@ -61,6 +61,39 @@ Whole numbers or decimal values may be used; the calculator will automatically c
 
 > *Example.* If the *offset ratio* is 1/1 and the *input ratio* is 10/9, then the OUTPUT is calculated to be 10/9 in relation to the REFERENCE PITCH. If the *offset ratio* is altered to 9/8, then the output is 10/9 in relation to 9/8, compounding the two ratios. Thus, the calculation obtains (10/9)⋅(9/8)  =  5/4 in relation to the REFERENCE.
 
+### 3.3	Moving between input methods
+Making changes in an inactive input method will have no effect on the output until that method is made active (i.e. selected). However, calculated outputs (irrespective of the active input method) may be loaded at any time into the *offset ratio* and the *input ratio* fields by means of the load output buttons. This allows pitches from the HEJI notation palette to be easily stored as offset or input values for later use in JI ratio input. Additionally, while input by JI ratio is active, an input interval may easily be stacked multiple times by repeatedly loading the calculated output into the *offset ratio*.
+
+## 4. OUTPUT
+The calculator computes information based on the INPUT and REFERENCE PITCH values. Toggling normalise optionally reduces output results to pitch classes by reducing ratios to the span between unison (1/1) and octave (2/1). For example: 3/1 ⇒ 3/2; 1/3 ⇒ 4/3; etc.
+
+### 4.1	HEJI Notation
+Corresponding notation of a ratio in terms of the reference pitch, up to the 47-Limit. If the scope of the calculator is exceeded, the message *undefined* is displayed.
+
+### 4.2	Ratio
+The calculated output expressed as a ratio of whole numbers with respect to the REFERENCE PITCH. If values become very large, the ratio is automatically converted to a decimal value.
+
+### 4.3	Tuning meter
+The output ratio as a microtonal deviation falling within 50 cents of the nearest 12edo chromatic note.
+
+### 4.4	Frequency
+The output as a frequency in Hz.
+
+### 4.5	Cents from reference
+The size of the output ratio measured in cents.
+
+### 4.6	Software pitch bends
+Values for generating microtonal pitch deviations in notation software (Sibelius, Finale, Musescore). The *pb range* depends on the software instrument used. 
+
+Dorico natively supports playback of user-defined microtonal accidentals. To set up HEJI, the first step is to create a new Tonality System with 12000 divisions per octave, achieved by setting the wholetones A–B, C–D, D–E, F–G, and G–A to 2040 divisions and the semitones B–C and E–F to 900 divisions. In principle, this allows for an accuracy of up to 1/10th of a cent while simultaneously defining the diatonic wholetones in terms of the Pythagorean wholetone 8:9 and the diatonic semitones in terms of the Pythagorean limma 243:256. 
+
+Accidental symbols may then be created using font glyphs, which the user associates with *pitch deltas*. Like HEJI accidentals themselves, the software makes use of these deltas to modify the previously defined Pythagorean diatonic notes. Pitch delta values may be easily computed using information computed by the calculator.
+
+To define the deviation of accidentals in a Dorico tonality system, set A as the reference, apply the desired accidental combination from the HEJI input palette with diatonic note A chosen, then use the *cents from reference* value. The pitch delta value is 10 times this cents value. 
+
+## 5. MELODIC DISTANCE
+To find the interval between two pitches, computed OUTPUTs may be saved by clicking the load output buttons or ratios may be typed directly into the MELODIC DISTANCE input fields. The calculation is sensitive to the order of input, as ratio II ÷ ratio I. The output ratio—in the form denominator : numerator—expresses melodic distance as a melody between partials in the harmonic/subharmonic series shared by the two input ratios.
+
 
 
 
