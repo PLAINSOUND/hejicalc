@@ -31,16 +31,16 @@ On desktop, the app has been optimised for full HD and higher resolution display
 ### 2.1	Notation and frequency of 1/1
 By default, 1/1 is the pitch written as *ntA4 in scientific pitch notation (SPN) and its frequency is 440Hz. 
 
-All other tones in the harmonic space are generated from this starting point, multiplying the reference frequency by fractions to produce rational interval (JI) relationships. Harry Partch called this principle Monophony, and in Genesis of a Music, he describes it as “an organization of musical materials based upon the faculty of the human ear to perceive all intervals and to deduce all principles of musical relationship as an expansion from unity, as 1 is to 1.”
+All other tones in the harmonic space are generated from this starting point, multiplying the reference frequency by fractions to produce rational interval (JI) relationships. Harry Partch called this principle *Monophony*, and in *Genesis of a Music*, he describes it as “an organization of musical materials based upon the faculty of the human ear to perceive all intervals and to deduce all principles of musical relationship as an expansion from unity, as 1 is to 1.”
 
-Changing the REFERENCE pitch’s octave, diatonic pitch, and/or accidental automatically updates its frequency—1/1 frequency (Hz)—by a 12edo relationship. Once the spelling of 1/1 is specified, its frequency may be adjusted to any desired value.
+Changing the REFERENCE pitch’s octave, diatonic pitch, and/or accidental automatically updates its frequency - *1/1 frequency (Hz)* - by a 12edo relationship. Once the spelling of 1/1 is specified, its frequency may be adjusted to any desired value.
 
-> Example. Selecting octave 4, 12edo diatonic note G, and 12edo accidental *nt automatically calculates a 1/1 frequency value 391.9954 Hz. This is one 12edo wholetone (200 cents) below the default values A4 440 Hz (391.9954 = 440 ÷ 22/12). To work in the harmonic space preferred by Harry Partch, adjust the 1/1 frequency to 392.0000 Hz.
+> *Example.* Selecting *octave* 4, *12edo diatonic note* G, and *12edo accidental* 12edo natural automatically calculates a *1/1 frequency value* 391.9954 Hz. This is one 12edo wholetone (200 cents) below the default values A4 440 Hz (391.9954 = 440 ÷ 2^(2/12)). To work in the harmonic space preferred by Harry Partch, adjust the 1/1 frequency to 392.0000 Hz.
 
 ### 2.2	Tuning meter setting
-The options under tuning meter setting affect how cents values are calculated. The default, 1/1 = 0 cents, automatically links the value of tuning meter A4 frequency and 1/1 Frequency so that the selected reference note indicates a deviation of 0 cents. Setting tuning meter A4 frequency = 0 cents allows the user to specify separate values for tuning meter A4 frequency and 1/1 Frequency; the cents deviation of the selected reference note will be calculated automatically based on its spelling and these two frequency values.
+The options under **tuning meter setting** affect how cents values are calculated. The default, *1/1 = 0 cents*, automatically links the value of *tuning meter A4 frequency* and *1/1 Frequency* so that the selected reference note indicates a deviation of 0 cents. Setting *tuning meter A4 frequency = 0 cents* allows the user to specify separate values for *tuning meter A4 frequency* and *1/1 Frequency*; the cents deviation of the selected reference note will be calculated automatically based on its spelling and these two frequency values.
 
-> Example. If 1/1 is defined as 10 Hz, and spelled as *fE-1, then 440 Hz is partial 44°, written *o11*fA (about a quartertone below *nA !). If 1/1 = 0 cents is selected, tuning meter A4 frequency will need to be 452.5 Hz. If tuning meter A4 frequency = 0 cents is selected, and tuning meter A4 frequency is adjusted to 440Hz, *fE will indicate the deviation *ftE +48.7 cents.
+> *Example.* If 1/1 is defined as 10 Hz, and spelled as bE-1, then 440 Hz is partial 44°, about a quartertone below A. If *1/1 = 0 cents* is selected, *tuning meter A4 frequency* will need to be 452.5 Hz. If *tuning meter A4 frequency = 0 cents* is selected, and *tuning meter A4 frequency* is adjusted to 440Hz, notated bE will indicate the tuning meter deviation bE +48.7 cents.
 
 ## 3. INPUT
 Before making input, one of the following two options must be chosen.
@@ -48,4 +48,18 @@ Before making input, one of the following two options must be chosen.
 An input pitch may be defined according to its octave, diatonic note, and HEJI accidental(s). Palette input accidentals allow up to three Pythagorean apotomes (±) and three steps (±) in each of the prime dimensions 5 through 31.
 
 ![Table of symbols](HEJIcalc.png)
+
+### 3.2	JI Ratio
+Ratio input comprises two components—
+-	the *offset ratio* – a local 1/1 (with respect to the global 1/1 defined in REFERENCE)
+-	the *input ratio* – a ratio which is automatically multiplied by the offset ratio
+Whole numbers or decimal values may be used; the calculator will automatically convert decimals into whole number fractions when possible.
+
+> *Example.* If the *offset ratio* is 1/1 and the *input ratio* is 10/9, then the OUTPUT is calculated to be 10/9 in relation to the REFERENCE PITCH. If the *offset ratio* is altered to 9/8, then the output is 10/9 in relation to 9/8, compounding the two ratios. Thus, the calculation obtains (10/9)⋅(9/8)  =  5/4 in relation to the REFERENCE.
+
+
+
+
+
+
 
