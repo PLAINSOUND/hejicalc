@@ -93,10 +93,3 @@ To define the deviation of accidentals in a Dorico tonality system, set A as the
 
 ## 5. MELODIC DISTANCE
 To find the interval between two pitches, computed OUTPUTs may be saved by clicking the load output buttons or ratios may be typed directly into the MELODIC DISTANCE input fields. The calculation is sensitive to the order of input, as ratio II ÷ ratio I. The output ratio—in the form denominator : numerator—expresses melodic distance as a melody between partials in the harmonic/subharmonic series shared by the two input ratios.
-
-
-
-
-
-
-
