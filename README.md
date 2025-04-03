@@ -11,7 +11,7 @@ The calculator allows users to compute and compare relative pitch heights of any
 
 ### Branches / Development Roadmap
 The current site source code is published here as the branch "main", and users are welcome to report issues, log feature requests, etc. The branch "dev" is for current development of the next major release, which will integrate playback, sequencing, and integration with scale workshop and hexatone. Timeline for release is end of 2026.
-
+---
 ## 1. Introduction
 ### 1.1	Basic workflow
 In general, movement of information through the calculator ﬂows from left to right across the screen on desktop and top to bottom on mobile.
