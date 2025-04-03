@@ -1,1 +1,1 @@
-# Plainsound Harmonic Space Calculator
+# PLAINSOUND HARMONIC SPACE CALCULATOR
