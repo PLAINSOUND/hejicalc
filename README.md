@@ -1,7 +1,9 @@
 # PLAINSOUND HARMONIC SPACE CALCULATOR
 ## User Guide | Version 3.5 (2025.04)
 ### Thomas Nicholson & Marc Sabat
+
 ---
+
 ## About
 The [Plainsound Harmonic Space Calculator](hejicalc.plainsound.org) is a tool for composers and musicians interested in discovering and working with properties of intervals tuned in rational or just intonation (JI).
 
@@ -11,7 +13,9 @@ The calculator allows users to compute and compare relative pitch heights of any
 
 ### Branches / Development Roadmap
 The current site source code is published here as the branch "main", and users are welcome to report issues, log feature requests, etc. The branch "dev" is for current development of the next major release, which will integrate playback, sequencing, and integration with scale workshop and hexatone. Timeline for release is end of 2026.
+
 ---
+
 ## 1. Introduction
 ### 1.1	Basic workflow
 In general, movement of information through the calculator ﬂows from left to right across the screen on desktop and top to bottom on mobile.
@@ -29,11 +33,11 @@ On desktop, the app has been optimised for full HD and higher resolution display
 
 ## 2. REFERENCE PITCH
 ### 2.1	Notation and frequency of 1/1
-By default, 1/1 is the pitch written as *ntA4 in scientific pitch notation (SPN) and its frequency is 440Hz. 
+By default, 1/1 is the pitch written as A4 in scientific pitch notation (SPN) and its frequency is 440Hz. 
 
 All other tones in the harmonic space are generated from this starting point, multiplying the reference frequency by fractions to produce rational interval (JI) relationships. Harry Partch called this principle *Monophony*, and in *Genesis of a Music*, he describes it as “an organization of musical materials based upon the faculty of the human ear to perceive all intervals and to deduce all principles of musical relationship as an expansion from unity, as 1 is to 1.”
 
-Changing the REFERENCE pitch’s octave, diatonic pitch, and/or accidental automatically updates its frequency - *1/1 frequency (Hz)* - by a 12edo relationship. Once the spelling of 1/1 is specified, its frequency may be adjusted to any desired value.
+Changing the REFERENCE pitch’s octave, diatonic pitch, and/or accidental automatically updates its frequency—*1/1 frequency (Hz)*—by a 12edo relationship. Once the spelling of 1/1 is specified, its frequency may be adjusted to any desired value.
 
 > *Example.* Selecting *octave* 4, *12edo diatonic note* G, and *12edo accidental* 12edo natural automatically calculates a *1/1 frequency value* 391.9954 Hz. This is one 12edo wholetone (200 cents) below the default values A4 440 Hz (391.9954 = 440 ÷ 2^(2/12)). To work in the harmonic space preferred by Harry Partch, adjust the 1/1 frequency to 392.0000 Hz.
 
