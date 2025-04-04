@@ -12,7 +12,7 @@ One of the calculator’s key objectives is to support users of the [Helmholtz-E
 The calculator allows users to compute and compare relative pitch heights of any frequencies based on a chosen reference. Pitches may be entered in HEJI notation and/or as ratios; outputs include HEJI, ratios, absolute cents, tuning meter read-out, software pitch bends, etc.
 
 ### Branches / Development Roadmap
-The current site source code is published here as the branch "main", and users are welcome to report issues, log feature requests, etc. The branch "dev" is for current development of the next major release, which will integrate playback, sequencing, and integration with scale workshop and hexatone. Timeline for release is end of 2026.
+The current site source code is published here as the branch "main", and users are welcome to report issues, log feature requests, etc. The branch "dev" is for ongoing development of the next major release, which will integrate playback and sequencing tools. Timeline for release is end of 2026.
 
 ---
 
