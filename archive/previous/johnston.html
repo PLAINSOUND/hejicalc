@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<head>
+	<title>Ben Johnston JI Notation to Helmholtz-Ellis Converter</title>
+	<meta name="description" content="Convertor from Ben Johnston notation to Extended Helmholtz-Ellis JI pitch notation." />
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,400i,700" rel="stylesheet"> 
+	<style type="text/css">
+	/* FONT LOADS */
+	@font-face {
+		font-family: "HEJI";
+		src: url("HEJI.otf") format("opentype");
+	}
+	@font-face {
+		font-family: "HEJI2";
+		src: url("HEJI2.ttf") format("truetype");
+	}  
+	@font-face {
+		font-family: "Microtonal";
+		src: url("Microtonal.TTF") format("truetype");
+	}
+	/* CSS DEFINITIONS */
+	body  {
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		background-color: white;
+		color: #330000;
+	}
+	em  {
+		font-family: 'Roboto Condensed', sans-serif;
+		font-style: italic;
+		line-height: 148%;
+		background-color: white;
+		color: #330000;
+	}
+	strong {
+		font-family: 'Roboto Condensed', sans-serif;
+		line-height: 148%;
+		font-weight: 700;
+		background-color: white;
+		color: #330000;
+	}
+	h1 {
+		white-space: nowrap;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 20pt;
+		font-weight: 300;
+		line-height: 0;
+		color:gray;
+	}
+	h2 {
+		margin:0;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 18px;
+		line-height: 1.5;
+	}
+	h3 { 
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 18px;
+		line-height: 0;
+	}
+	input {
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+	table {
+		border-collapse: collapse;
+	}
+	table, th, td {
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-bottom: 5px;
+		vertical-align: top;
+	}
+	button {
+		background-color: #fff6e8;
+		text-align: center;
+		vertical-align: middle;
+		border: 1px solid gray;
+		margin-left: -2.5px;
+		margin-right: -2.5px;
+		margin-top: 0px;
+		margin-bottom: -1px;
+	}
+	button.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental, .spacer {
+		height: 50px;
+		width: 60px;
+		border: 1px solid gray;
+	}
+	.label {
+		font-family: 'Roboto Condensed', sans-serif;
+		color: gray;
+	}
+	.octave, .notes, .refOctave, .refNote {
+		border-radius: 50%;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+	.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental {
+		font-family: "Microtonal";
+		font-size: 18pt;
+	}
+	.refNote, .refOctave, .octave, .notes {
+		font-size: 12pt;
+	}
+	.notationOutput{
+		font-family: "HEJI2";
+		font-size: 28pt;
+	}
+	.noteName{
+		font-family: "HEJI";
+		font-size: 28pt;
+	}
+	.clear {
+		font-size: 18pt;
+	}
+	.selected {
+		background-color: #d4ffc6;
+		border: 1px solid gray;
+	}
+	.clearFreq, .clear, .clearSave, .clearMelodicSave, .clearInputRatio {
+		border-radius: 6px;
+		font-family: 'Roboto Condensed', sans-serif;
+		background-color: #e3e4e5;
+	}
+	.getMelodic, .getMelodicReference, .getCurrentPitch {
+		border-radius: 6px;
+		background-color: #d4ffc6;
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	/* FUNCTIONS */
+	Array.prototype.SumArray = function (arr) { /* sum two arrays by element */
+		var sum = [];
+		if (arr != null && this.length == arr.length) {
+			for (var i = 0; i < arr.length; i++) {
+				sum.push(this[i] + arr[i]);
+			}
+		}
+		return sum;
+	}     
+	Array.prototype.DiffArray = function (arr) { /* find the difference of two arrays */
+		var diff = [];
+		if (arr != null && this.length == arr.length) {
+			for (var i = 0; i < arr.length; i++) {
+				diff.push(this[i] - arr[i]);
+			}
+		}
+		return diff;
+	}
+	Array.prototype.ProductArray = function (arr) { // multiply two arrays by element 
+		var product = [];
+		if (arr != null && this.length == arr.length) {
+			for (var i = 0; i < arr.length; i++) {
+				product.push(this[i] * arr[i]);
+			}
+		}
+		return product;
+	}
+	Array.prototype.LowestTermsArray = function (arr) { // make sure elements in same positions are in lowest terms 
+		var returnLowestTerms = [[],[]];
+		if (arr != null && this.length == arr.length) {
+			for (var i = 0; i < arr.length; i++) {
+				returnLowestTerms[0].push(this[i] - Math.min(this[i],arr[i]));
+				returnLowestTerms[1].push(arr[i] - Math.min(this[i],arr[i]))
+			}
+		}
+		return returnLowestTerms;
+	}
+	Array.prototype.DivideArray = function (arr) { // divide two arrays by element
+		var divide = [];
+		if (arr != null && this.length == arr.length) {
+			for (var i = 0; i < arr.length; i++) {
+				divide.push(this[i] / arr[i]);
+			}
+		}
+		return divide;
+	}
+	Array.prototype.PowersArray = function (arr) { // find values of powers of primes 
+		var powers = [];
+		if (arr != null && this.length == arr.length) {
+			for (var i = 0; i < arr.length; i++) {
+				powers.push(Math.pow(this[i], arr[i]));
+			}
+		}
+		return powers;
+	}
+	function sum(array) { // sum of all array elements 
+		var sum = 0;
+		for (var i = 0; i < array.length; i++) {
+			sum = sum + array[i];
+		}
+		return sum;
+	}
+	function multiply(array) { // product of all array elements 
+		var mult = 1;
+		for (var i = 0; i < array.length; i++) {
+			mult = mult * array[i];
+		}
+		return mult;
+	}
+	function reduce(numerator,denominator){ // put fractions in reduced form 
+		var gcd = function gcd(a,b){
+			return b ? gcd(b, a%b) : a;
+		};
+		gcd = gcd(numerator,denominator);
+		return [numerator/gcd, denominator/gcd];
+	}
+	function getArray(integer){ // get prime factorization of integer, output array of powers of each prime 
+		var result = [];
+		for(i = 0; i < primes.length; i++){
+			result.push(0);
+			while(integer % primes[i] == 0){
+				result[i]++;
+				integer = integer / primes[i];
+			}
+		}
+		return result;
+	}
+	// GLOBAL CONSTANTS AND VARIABLES 
+	const primes = [2,3,5,7,11,13,17,19,23,29,31];
+	const reference = [0,0,0,0,0,0,0,0,0,0,0]; 
+	// const autoOffsetToA = [4,-3,0,0,0,0,0,0,0,0,0];
+	const tonalIdentity = [0,1,4,-2,-1,3,-5,-3,6,-2,0];
+	const tonalIdentityRef = [0,1,4,-2,-1,-4,7,-3,6,-2,5];
+	const negIdentity = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+	const commaDown = [4,-4,1,0,0,0,0,0,0,0,0]; // for A+ = A
+	const refOctave = [
+	[4,0,0,0,0,0,0,0,0,0,0], 
+	[3,0,0,0,0,0,0,0,0,0,0],
+	[2,0,0,0,0,0,0,0,0,0,0],
+	[1,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-1,0,0,0,0,0,0,0,0,0,0],
+	[-2,0,0,0,0,0,0,0,0,0,0],
+	[-3,0,0,0,0,0,0,0,0,0,0] 
+	];
+	const refNote = [
+	[0,1,-1,0,0,0,0,0,0,0,0], 
+	[-3,3,-1,0,0,0,0,0,0,0,0], 
+	[-2,1,0,0,0,0,0,0,0,0,0], 
+	[2,0,-1,0,0,0,0,0,0,0,0], 
+	[-1,2,-1,0,0,0,0,0,0,0,0], 
+	[0,0,0,0,0,0,0,0,0,0,0], 
+	[-3,2,0,0,0,0,0,0,0,0,0] 
+	];
+	const refAccidental = [
+	[3,1,-2,0,0,0,0,0,0,0,0], 
+	[0,0,0,0,0,0,0,0,0,0,0], 
+	[-3,-1,2,0,0,0,0,0,0,0,0] 
+	];
+	const octave = [
+	[-4,0,0,0,0,0,0,0,0,0,0],
+	[-3,0,0,0,0,0,0,0,0,0,0],
+	[-2,0,0,0,0,0,0,0,0,0,0],
+	[-1,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[1,0,0,0,0,0,0,0,0,0,0],
+	[2,0,0,0,0,0,0,0,0,0,0],
+	[3,0,0,0,0,0,0,0,0,0,0]
+	];
+	const notes = [
+	[0,1,-1,0,0,0,0,0,0,0,0], 
+	[-3,3,-1,0,0,0,0,0,0,0,0], 
+	[-2,1,0,0,0,0,0,0,0,0,0], 
+	[2,0,-1,0,0,0,0,0,0,0,0], 
+	[-1,2,-1,0,0,0,0,0,0,0,0], 
+	[0,0,0,0,0,0,0,0,0,0,0], 
+	[-3,2,0,0,0,0,0,0,0,0,0] 
+	];
+	const chromatic = [
+	[33,-21,0,0,0,0,0,0,0,0,0],
+	[22,-14,0,0,0,0,0,0,0,0,0],
+	[11,-7,0,0,0,0,0,0,0,0,0], 
+	[0,0,0,0,0,0,0,0,0,0,0], 
+	[-11,7,0,0,0,0,0,0,0,0,0], 
+	[-22,14,0,0,0,0,0,0,0,0,0],
+	[-33,21,0,0,0,0,0,0,0,0,0], 
+	];
+	const bjchromatic = [
+	[9,3,-6,0,0,0,0,0,0,0,0],
+	[6,2,-4,0,0,0,0,0,0,0,0],
+	[3,1,-2,0,0,0,0,0,0,0,0], 
+	[0,0,0,0,0,0,0,0,0,0,0], 
+	[-3,-1,2,0,0,0,0,0,0,0,0], 
+	[-6,-2,4,0,0,0,0,0,0,0,0],
+	[-9,-3,6,0,0,0,0,0,0,0,0], 
+	];
+	const syntonic = [
+	[12,-12,3,0,0,0,0,0,0,0,0],
+	[8,-8,2,0,0,0,0,0,0,0,0],
+	[4,-4,1,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-4,4,-1,0,0,0,0,0,0,0,0],
+	[-8,8,-2,0,0,0,0,0,0,0,0],
+	[-12,12,-3,0,0,0,0,0,0,0,0]
+	];
+	const septimal = [
+	[-18,6,0,3,0,0,0,0,0,0,0],
+	[-12,4,0,2,0,0,0,0,0,0,0],
+	[-6,2,0,1,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[6,-2,0,-1,0,0,0,0,0,0,0],
+	[12,-4,0,-2,0,0,0,0,0,0,0],
+	[18,-6,0,-3,0,0,0,0,0,0,0]
+	];
+	const bjseptimal = [
+	[-6,-6,3,3,0,0,0,0,0,0,0],
+	[-4,-4,2,2,0,0,0,0,0,0,0],
+	[-2,-2,1,1,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[2,2,-1,-1,0,0,0,0,0,0,0],
+	[4,4,-2,-2,0,0,0,0,0,0,0],
+	[6,6,-3,-3,0,0,0,0,0,0,0]
+	];
+	const undecimal = [
+	[15,-3,0,0,-3,0,0,0,0,0,0],
+	[10,-2,0,0,-2,0,0,0,0,0,0],
+	[5,-1,0,0,-1,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-5,1,0,0,1,0,0,0,0,0,0],
+	[-10,2,0,0,2,0,0,0,0,0,0],
+	[-15,3,0,0,3,0,0,0,0,0,0]
+	];
+	const tridecimal = [
+	[3,-9,0,0,0,3,0,0,0,0,0],
+	[2,-6,0,0,0,2,0,0,0,0,0],
+	[1,-3,0,0,0,1,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-1,3,0,0,0,-1,0,0,0,0,0],
+	[-2,6,0,0,0,-2,0,0,0,0,0],
+	[-3,9,0,0,0,-3,0,0,0,0,0]
+	];
+	const bjtridecimal = [
+	[18,0,-3,0,0,-3,0,0,0,0,0],
+	[12,0,-2,0,0,-2,0,0,0,0,0],
+	[6,0,-1,0,0,-1,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-6,0,1,0,0,1,0,0,0,0,0],
+	[-12,0,2,0,0,2,0,0,0,0,0],
+	[-18,0,3,0,0,3,0,0,0,0,0]
+	];
+	const seventeen = [
+	[-24,3,3,0,0,0,3,0,0,0,0],
+	[-16,2,2,0,0,0,2,0,0,0,0],
+	[-8,1,1,0,0,0,1,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[8,-1,-1,0,0,0,-1,0,0,0,0],
+	[16,-2,-2,0,0,0,-2,0,0,0,0],
+	[24,-3,-3,0,0,0,-3,0,0,0,0]
+	];
+	const bjseventeen = [
+	[3,-3,6,0,0,0,-3,0,0,0,0],
+	[2,-2,4,0,0,0,-2,0,0,0,0],
+	[1,-1,2,0,0,0,-1,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-1,1,-2,0,0,0,1,0,0,0,0],
+	[-2,2,-4,0,0,0,2,0,0,0,0],
+	[-3,3,-6,0,0,0,3,0,0,0,0]
+	];
+	const nineteen = [
+	[27,-9,0,0,0,0,0,-3,0,0,0],
+	[18,-6,0,0,0,0,0,-2,0,0,0],
+	[9,-3,0,0,0,0,0,-1,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-9,3,0,0,0,0,0,1,0,0,0],
+	[-18,6,0,0,0,0,0,2,0,0,0],
+	[-27,9,0,0,0,0,0,3,0,0,0]
+	];
+	const bjnineteen = [
+	[-15,-3,3,0,0,0,0,3,0,0,0],
+	[-10,-2,2,0,0,0,0,2,0,0,0],
+	[-5,-1,1,0,0,0,0,1,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[5,1,-1,0,0,0,0,-1,0,0,0],
+	[10,2,-2,0,0,0,0,-2,0,0,0],
+	[15,3,-3,0,0,0,0,-3,0,0,0]
+	];
+	const twentyThree = [
+	[-15,18,0,0,0,0,0,0,-3,0,0],
+	[-10,12,0,0,0,0,0,0,-2,0,0],
+	[-5,6,0,0,0,0,0,0,-1,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[5,-6,0,0,0,0,0,0,1,0,0],
+	[10,-12,0,0,0,0,0,0,2,0,0],
+	[15,-18,0,0,0,0,0,0,3,0,0]
+	];
+	const bjtwentyThree = [
+	[-3,6,3,0,0,0,0,0,-3,0,0],
+	[-2,4,2,0,0,0,0,0,-2,0,0],
+	[-1,2,1,0,0,0,0,0,-1,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[1,-2,-1,0,0,0,0,0,1,0,0],
+	[2,-4,-2,0,0,0,0,0,2,0,0],
+	[3,-6,-3,0,0,0,0,0,3,0,0]
+	];
+	const twentyNine = [
+	[12,6,-3,0,0,0,0,0,0,-3,0],
+	[8,4,-2,0,0,0,0,0,0,-2,0],
+	[4,2,-1,0,0,0,0,0,0,-1,0],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-4,-2,1,0,0,0,0,0,0,1,0],
+	[-8,-4,2,0,0,0,0,0,0,2,0],
+	[-12,-6,3,0,0,0,0,0,0,3,0]
+	];
+	const thirtyOne = [
+	[-30,3,0,0,3,0,0,0,0,0,3],
+	[-20,2,0,0,2,0,0,0,0,0,2],
+	[-10,1,0,0,1,0,0,0,0,0,1],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[10,-1,0,0,-1,0,0,0,0,0,-1],
+	[20,-2,0,0,-2,0,0,0,0,0,-2],
+	[30,-3,0,0,-3,0,0,0,0,0,-3]
+	];
+	const bjthirtyOne = [
+	[3,3,3,0,0,0,0,0,0,0,-3],
+	[2,2,2,0,0,0,0,0,0,0,-2],
+	[1,1,1,0,0,0,0,0,0,0,-1],
+	[0,0,0,0,0,0,0,0,0,0,0],
+	[-1,-1,-1,0,0,0,0,0,0,0,1],
+	[-2,-2,-2,0,0,0,0,0,0,0,2],
+	[-3,-3,-3,0,0,0,0,0,0,0,3]
+	];
+	const nat = "n";
+	const refMidiNote = ["C", "C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"];
+	const diatonicOutput = ["&#0204","&#0202","&#0206","&#0203","&#0201","&#0205","&#0200"];
+	const fiveDownDownDownDown = ["eI","I","K","M","O","R","vR"];
+	const fiveDownDownDown = ["eB","B","b","k","s","S","vS"];
+	const fiveDownDown = ["eC","C","c","l","t","T","vT"];
+	const fiveDown = ["eD","D","d","m","u","U","vU"];
+	const pythagOutput = ["eE","E","e","","v","V","vV"];
+	const fiveUp = ["eF","F","f","o","w","W","vW"];
+	const fiveUpUp = ["eG","G","g","p","x","X","vX"];
+	const fiveUpUpUp = ["eH","H","h","q","y","Y","vY"];
+	const fiveUpUpUpUp = ["eJ","J","L","N","P","Q","vQ"];
+	const septimalSymbols = ["&lt,",",","&lt","",">",".",">."]; 
+	const undecimalSymbols = ["555","55","5","","4","44","444"];
+	const tridecimalSymbols = ["000","00","0","","9","99","999"];
+	const seventeenSymbols = [":::","::",":","",";",";;",";;;"];
+	const nineteenSymbols = ["***","**","*","","/","//","///"];
+	const twentyThreeSymbols = ["666","66","6","","3","33","333"];
+	const twentyNineSymbols = ["@@@","@@","@","","`","``","```"];
+	const thirtyOneSymbols = ["---","--","-","","+","++","+++"];
+	var numValue = 1; 
+	var denValue = 1; 
+	var numValueRef = 1;
+	var denValueRef = 1;
+	var displayNumValue = 1;
+	var displayDenValue = 1;
+	var melodicRefNum = 1;
+	var melodicRefDen = 1;
+	var melodicNum = 1;
+	var melodicDen = 1;
+	var checkMelodicNum = 1;
+	var checkMelodicDen = 1;
+	var inputNum = 1; 
+	var inputDen = 1; 
+	var inputNumReduced = 1;
+	var inputDenReduced = 1;
+	var savedNum = 1; 
+	var savedDen = 1; 
+	var numArray = [0,0,0,0,0,0,0,0,0,0,0];
+	var denArray = [0,0,0,0,0,0,0,0,0,0,0];
+	var savedNumArray = [0,0,0,0,0,0,0,0,0,0,0];
+	var savedDenArray = [0,0,0,0,0,0,0,0,0,0,0];
+	var reducedSavedNum = 1;
+	var reducedSavedDen = 1;
+	var reducedRatioRemainder = [1,1];
+	var inputSum = [0,0,0,0,0,0,0,0,0,0,0]; 
+	var gannInputSum = [0,0,0,0,0,0,0,0,0,0,0];
+	var displaySum = [0,0,0,0,0,0,0,0,0,0,0];
+	var savedInputSum; 
+	var offsetNumRemainder;
+	var offsetDenRemainder;
+	var inputNumRemainder;
+	var inputDenRemainder;
+	var precision = 6; 
+	var kammerTon = 440.000000; 
+	var jiCents;
+	var freq1to1 = 264.000000;
+	var reducedOffsetInput;
+	var freq; 
+	var ref12acc = 0;
+	var centDeviation;
+	var invertedCents;
+	// PROCEDURES 
+	function sendA(){ // send A natural on page load 
+		$("#paletteInput").click();
+		$("#Anatural").click();
+		$("#defaultOctave").click();
+		$("#default3").click();
+		$("#default5").click();
+		$("#default7").click();
+		$("#default11").click();
+		$("#default13").click();
+		$("#default17").click();
+		$("#default19").click();
+		$("#default23").click();
+		$("#default29").click();
+		$("#default31").click();
+		savedInputSum = reference;
+		savedNum = 1;
+		savedDen = 1;
+		DisplayNumValue = 1;
+		DisplayDenValue = 1; 
+		inputNum = 1;
+		inputDen = 1;
+		checkMelodicNum = 1;
+		checkMelodicDen = 1;
+		getRatio();
+		getFrequency1to1();
+		getCurrentPitch();
+	}
+	/* FUNCTIONS CALLED TO RETRIEVE CURRENT VALUES */
+	function getInputNum(){
+		return $(".inputNum").attr("value");
+	}
+	function getInputDen(){
+		return $(".inputDen").attr("value");
+	}
+	function getRefOctave(){
+		return $(".refOctave.selected").attr("value");
+	}
+	function getRefNote(){
+		return $(".refNote.selected").attr("value");
+	}
+	function getRefAccidental(){
+		return $(".refAccidental.selected").attr("value");
+	}
+	function getSavedNum(){
+		return $(".savedNum").attr("value");
+	}
+	function getSavedDen(){
+		return $(".savedDen").attr("value");
+	}
+	function getOctave(){
+		return $(".octave.selected").attr("value");
+	}
+	function getNote(){
+		return $(".notes.selected").attr("value");
+	}
+	function getChromatic(){
+		return $(".chromatic.selected").attr("value");
+	}
+	function getSyntonic(){
+		return $(".syntonic.selected").attr("value");
+	}
+	function getSeptimal(){
+		return $(".septimal.selected").attr("value");
+	}
+	function getUndecimal(){
+		return $(".undecimal.selected").attr("value");
+	}
+	function getTridecimal(){
+		return $(".tridecimal.selected").attr("value");
+	}
+	function getSeventeen(){
+		return $(".seventeen.selected").attr("value");
+	}
+	function getNineteen(){
+		return $(".nineteen.selected").attr("value");
+	}
+	function getTwentyThree(){
+		return $(".twentyThree.selected").attr("value");
+	}
+	function getTwentyNine(){
+		return $(".twentyNine.selected").attr("value");
+	}
+	function getThirtyOne(){
+		return $(".thirtyOne.selected").attr("value");
+	}
+	function getFrequency(){
+		return $(".frequency").attr("value");
+	}
+	$(document).ready(function(){
+		kammerTon = $("#frequencyA4").val();
+		inputNum = $("#inputNum").val();
+		inputDen = $("#inputDen").val();
+		sendA();
+		getPC();
+		$("#inputNum").change(function(c){
+			inputNum = $(this).val();
+			getRatio();
+			getPC();
+			getSavedInputSum();
+		})
+		$("#inputDen").change(function(c){
+			inputDen = $(this).val();
+			getRatio();
+			getPC();
+			getSavedInputSum();
+		})
+		$(".refOctave").click(function(c){
+			$(".refOctave").removeClass("selected");
+			$(this).addClass("selected");
+			getRefRatio();
+			getRatio();
+			getFrequency1to1();
+			getPC();
+		});
+		$(".refNote").click(function(c){
+			$(".refNote").removeClass("selected");
+			$(this).addClass("selected");
+			getRefRatio();
+			getRatio();
+			getFrequency1to1();
+			getPC();
+		});
+		$(".refAccidental").click(function(c){
+			$(".refAccidental").removeClass("selected");
+			$(this).addClass("selected");
+			getRefRatio();
+			getRatio();
+			getFrequency1to1();
+			getPC();
+		});
+		$(".octave").click(function(c){
+			$(".octave").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		});
+		$(".accidental").click(function(c){
+			$(".accidental").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		});
+		$(".notes").click(function(c){
+			$(".notes").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		});
+		$(".chromatic").click(function(c){
+			$(".chromatic").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		});
+		$(".syntonic").click(function(c){
+			$(".syntonic").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".septimal").click(function(c){
+			$(".septimal").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".undecimal").click(function(c){
+			$(".undecimal").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".tridecimal").click(function(c){
+			$(".tridecimal").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".seventeen").click(function(c){
+			$(".seventeen").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".nineteen").click(function(c){
+			$(".nineteen").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".twentyThree").click(function(c){
+			$(".twentyThree").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".twentyNine").click(function(c){
+			$(".twentyNine").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$(".thirtyOne").click(function(c){
+			$(".thirtyOne").removeClass("selected");
+			$(this).addClass("selected");
+			getRatio();
+			getPC();
+		}); 
+		$("#num").change(function(c){
+			numValue = $(this).val();
+			getCentDeviation();
+			getPC();
+		})
+		$("#den").change(function(c){
+			denValue = $(this).val();
+			getCentDeviation();
+			getPC();
+		})
+		$("#frequencyA4").change(function(c){
+			kammerTon = $(this).val();
+			getFrequency1to1();
+			getPC(); 
+		})
+		$("#1to1Frequency").change(function(c){
+			freq1to1 = $(this).val();
+			getFrequencyKammerTon();
+			getPC(); 
+		})
+		$("#savedNum").change(function(c){
+			savedNum = $(this).val();
+			getSavedInputSum();
+		})
+		$("#savedDen").change(function(c){
+			savedDen = $(this).val();
+			getSavedInputSum();
+		})
+		$("#paletteInput").click(function(c){
+			getRatio();
+			getPC();
+		})
+		$("#ratioInput").click(function(c){
+			getRatio();
+			getPC();
+		})
+		$("#normalize").click(function(c){
+			getRatio();
+			getPC();
+		})
+		$("#gann").click(function(c){
+			getRatio();
+			getPC();
+		})
+		$("#cIsZero").click(function(c){
+			getCentDeviation();
+		})
+	});
+	function getValue(arr){
+		return multiply(primes.PowersArray(arr));
+	}
+	// WORKFLOW
+	// get primes powers of input then convert into ratio num and den
+	function getRatio() {		
+		getInputSum();
+		var otonalArray = inputSum.map(value => {
+			return value < 0 ? 0 : value;
+		});
+		var utonalArray = inputSum.map(value => {
+			return value < 0 ? Math.abs(value) : 0;
+		});
+		numValue = getValue(otonalArray);
+		denValue = getValue(utonalArray);
+		getDisplaySum();
+	}
+	function getRefRatio() {		
+		getInputSumRef();
+		var otonalArrayRef = inputSumRef.map(value => {
+			return value < 0 ? 0 : value;
+		});
+		var utonalArrayRef = inputSumRef.map(value => {
+			return value < 0 ? Math.abs(value) : 0;
+		});
+		numValueRef = getValue(otonalArrayRef);
+		denValueRef = getValue(utonalArrayRef);
+		getDisplaySum();
+		getFrequency1to1();
+	}
+	// retrieval of prime powers based on each comma
+	function getInputSum(){
+		if ($("#gann").prop("checked")){
+		inputSum = octave[getOctave()]
+		.SumArray(notes[getNote()])
+		.SumArray(bjchromatic[getChromatic()]) 
+		.SumArray(syntonic[getSyntonic()])
+		.SumArray(bjseptimal[getSeptimal()])
+		.SumArray(undecimal[getUndecimal()])
+		.SumArray(bjtridecimal[getTridecimal()])
+		.SumArray(bjseventeen[getSeventeen()])
+		.SumArray(bjnineteen[getNineteen()])
+		.SumArray(bjtwentyThree[getTwentyThree()])
+		.SumArray(twentyNine[getTwentyNine()])
+		.SumArray(bjthirtyOne[getThirtyOne()])
+		.SumArray(commaDown);
+		} else {
+		inputSum = octave[getOctave()]
+		.SumArray(notes[getNote()])
+		.SumArray(bjchromatic[getChromatic()]) 
+		.SumArray(syntonic[getSyntonic()])
+		.SumArray(bjseptimal[getSeptimal()])
+		.SumArray(undecimal[getUndecimal()])
+		.SumArray(bjtridecimal[getTridecimal()])
+		.SumArray(bjseventeen[getSeventeen()])
+		.SumArray(bjnineteen[getNineteen()])
+		.SumArray(bjtwentyThree[getTwentyThree()])
+		.SumArray(twentyNine[getTwentyNine()])
+		.SumArray(bjthirtyOne[getThirtyOne()]);
+		}
+		reducedRatioRemainder = [1,1];
+		$("#monzo").text(inputSum);
+	}
+	function getInputSumRef(){
+		inputSumRef = octave[getRefOctave()]
+		.SumArray(refNote[getRefNote()])
+		.SumArray(refAccidental[getRefAccidental()]);
+		reducedRatioRemainder = [1,1];
+	}
+	// get output ratio with respect to selected reference
+	function getDisplaySum(){
+		if ($("#gann").prop("checked")){
+		displaySum = inputSum
+		.SumArray(refOctave[getRefOctave()]) 
+		.DiffArray(refNote[getRefNote()]) 
+		.DiffArray(refAccidental[getRefAccidental()])
+		.DiffArray(commaDown);
+		} else {
+		displaySum = inputSum
+		.SumArray(refOctave[getRefOctave()]) 
+		.DiffArray(refNote[getRefNote()]) 
+		.DiffArray(refAccidental[getRefAccidental()]);
+		}
+		getDisplayValues();
+	}
+	function getDisplayValues(){
+		var displayOtonalArray = displaySum.map(value => {
+			return value < 0 ? 0 : value;
+		});
+		var displayUtonalArray = displaySum.map(value => {
+			return value < 0 ? Math.abs(value) : 0;
+		});		
+		var integerMonzo1 = getValue(savedNumArray);
+		var integerMonzo2 = getValue(savedDenArray);
+		var integerMonzo3 = getValue(numArray);
+		var integerMonzo4 = getValue(denArray);
+		var remainderOffsetNum = reducedSavedNum / integerMonzo1;
+		var remainderOffsetDen = reducedSavedDen / integerMonzo2; 
+		var remainderInputNum = inputNumReduced / integerMonzo3;
+		var remainderInputDen = inputDenReduced / integerMonzo4; 
+		var ratioRemainderNum = remainderOffsetNum * remainderInputNum;
+		var ratioRemainderDen = remainderOffsetDen * remainderInputDen; 
+		reducedRatioRemainder = reduce(ratioRemainderNum,ratioRemainderDen)		
+		displayNumValue = getValue(displayOtonalArray);
+		displayDenValue = getValue(displayUtonalArray);
+		if (displayNumValue <= 9007199254740991 && displayNumValue <= 9007199254740991){
+			$("#num").text(displayNumValue);
+			$("#den").text(displayDenValue);
+		} else {
+			var float = displayNumValue / displayDenValue;
+			displayNumValue = float;
+			displayDenValue = 1;
+			$("#num").text(displayNumValue);
+			$("#den").text(displayDenValue);
+		}
+		getOutputFrequency();
+		getCentDeviation();
+	}
+	function getCentDeviation(){
+		var hdValue = Math.log2(displayNumValue * displayDenValue);
+		$("#hd").text(hdValue.toFixed(precision));
+		
+		var centsSum = inputSum;
+		
+		var centsOtonalArray = centsSum.map(value => {
+			return value < 0 ? 0 : value;
+		});
+		var centsUtonalArray = centsSum.map(value => {
+			return value < 0 ? Math.abs(value) : 0;
+		});
+		var centsNumValue = getValue(centsOtonalArray);
+		var centsDenValue = getValue(centsUtonalArray);
+		jiCents = 1200*Math.log2((centsNumValue) / (centsDenValue));
+		if ($("#normalize").prop("checked")){
+			jiCents = mod(jiCents,1200);
+		}
+		var intervalCents;
+		var intervalCentsSum = inputSum
+		.SumArray(refOctave[getRefOctave()]) 
+		.DiffArray(refNote[getRefNote()]) 
+		.DiffArray(refAccidental[getRefAccidental()]);
+		var intervalCentsOtonalArray = intervalCentsSum.map(value => {
+			return value < 0 ? 0 : value;
+		});
+		var intervalCentsUtonalArray = intervalCentsSum.map(value => {
+			return value < 0 ? Math.abs(value) : 0;
+		});
+		var intervalCentsNumValue = getValue(intervalCentsOtonalArray);
+		var intervalCentsDenValue = getValue(intervalCentsUtonalArray);
+		
+		var intervalCents = 1200*Math.log2((displayNumValue) / (displayDenValue));
+		if ($("#normalize").prop("checked")){
+			intervalCents = mod(jiCents,1200);
+		}
+		// harmonic series as number of 12-ED2 semitones (with respect to Johnston notation)
+		var et2 = (centsSum[0] * 12);
+		var et3 = (centsSum[1] * 19);
+		var et5 = (centsSum[2] * 28);
+		var et7 = (centsSum[3] * 34);
+		var et11 = (centsSum[4] * 41);
+		var et13 = (centsSum[5] * 44);
+		var et17 = (centsSum[6] * 49);
+		var et19 = (centsSum[7] * 51);
+		var et23 = (centsSum[8] * 54);
+		var et29 = (centsSum[9] * 58);
+		var et31 = (centsSum[10] * 69);
+		var etSemiTones = (et2 + et3 + et5 + et7 + et11 + et13 + et17 + et19 + et23 + et29 + et31);
+		var etCents = etSemiTones * 100.0;
+		centDeviation;
+		centDeviation = mod((jiCents - etCents),100);
+		if (  $("#gann").prop("checked") == false && $("#cIsZero").prop("checked") ){
+			centDeviation = centDeviation - 15.641287;
+		} else if ( $("#gann").prop("checked") && $("#cIsZero").prop("checked") ){
+			centDeviation = centDeviation + 5.865003;
+		} 
+		invertedCents = -(100.0 - centDeviation);
+		if (centDeviation < 50){
+			$("#cents").text("+" + centDeviation.toFixed(precision));
+		} else {
+			$("#cents").text(invertedCents.toFixed(precision));
+		}
+		if (centDeviation == 0 || centDeviation < 0){
+			$("#cents").text(centDeviation.toFixed(precision));
+		}
+		$("#JIgross").text(intervalCents.toFixed(precision));
+		getPC();
+	}
+	function getFrequency1to1(){
+		freq1to1 = ( kammerTon * numValueRef ) / denValueRef;
+		$("#1to1Frequency").val(freq1to1.toFixed(precision));
+		getOutputFrequency();
+	}
+	function getFrequencyKammerTon(){
+		kammerTon = ( kammerTon * denValueRef ) / numValueRef;
+		$("#frequencyA4").val(kammerTon.toFixed(precision));
+		getOutputFrequency();
+	}
+	function getOutputFrequency(){
+		var outputFreq = freq1to1 * (displayNumValue / displayDenValue);
+		$("#frequency").text(outputFreq.toFixed(precision));
+	}
+	// get values for melodic distance check 
+	function getCurrentPitch(){
+		savedNum = displayNumValue;
+		savedDen = displayDenValue;
+		$("#savedNum").val(savedNum);
+		$("#savedDen").val(savedDen);
+		getSavedInputSum();
+	}
+	function getSavedInputSum(){
+		savedSmallestTerms = reduce(savedNum,savedDen);
+		reducedSavedNum = savedSmallestTerms[0];
+		reducedSavedDen = savedSmallestTerms[1];
+		savedNumArray = getArray(reducedSavedNum);
+		savedDenArray = getArray(reducedSavedDen);
+		savedInputSum = savedNumArray
+		.DiffArray(savedDenArray);
+		getRatio(); 
+	}
+	function getMelodicReference(){
+		melodicRefNum = displayNumValue;
+		melodicRefDen = displayDenValue;
+		$("#melodicRefNum").val(melodicRefNum);
+		$("#melodicRefDen").val(melodicRefDen);
+	}
+	function getMelodicCheck(){
+		checkMelodicNum = displayNumValue;
+		checkMelodicDen = displayDenValue;
+		$("#checkMelodicNum").val(checkMelodicNum);
+		$("#checkMelodicDen").val(checkMelodicDen);
+		getMelodicRatio();
+	}
+	function getMelodicRatio(){
+		melodicNum = melodicRefDen * checkMelodicNum;
+		melodicDen = melodicRefNum * checkMelodicDen;
+		var reduceMelodic = reduce(melodicNum,melodicDen);
+		$("#melodicNum").text(reduceMelodic[0]);
+		$("#melodicDen").text(reduceMelodic[1]);
+		var melodicCents =  1200 * Math.log2(reduceMelodic[0] / reduceMelodic[1]);
+		$("#melodicCents").text(melodicCents.toFixed(precision));
+		var melodicRefFreq = freq1to1 * (melodicRefNum / melodicRefDen);
+		var checkFreq = freq1to1 * (checkMelodicNum / checkMelodicDen);
+		var freqDiff = Math.abs(checkFreq - melodicRefFreq);
+		$("#freqDiff").text(freqDiff.toFixed(precision));
+		var melodicHD = Math.log2(reduceMelodic[0] * reduceMelodic[1]);
+		$("#melodicHD").text(melodicHD.toFixed(precision));
+	}
+	function clearSave(){
+		savedNum = 1;
+		savedDen = 1;
+		savedInputSum = reference;
+		$("#savedNum").val(savedNum);
+		$("#savedDen").val(savedDen);
+		getSavedInputSum();
+	}
+	function clearMelodicSave() {
+		melodicRefNum = 1;
+		melodicRefDen = 1;
+		$("#melodicRefNum").val(melodicRefNum);
+		$("#melodicRefDen").val(melodicRefDen);
+		getMelodicRatio();
+	}
+	function clearInputRatio() {
+		inputNum = 1;
+		inputDen = 1;
+		$("#inputNum").val(inputNum);
+		$("#inputDen").val(inputDen);
+		getRatio();
+	}
+	// clear all values stored in calc other than reference information
+	function doClear() {
+		$("#Anatural").click();
+		$("#defaultOctave").click();
+		$("#default3").click();
+		$("#default5").click();
+		$("#default7").click();
+		$("#default11").click();
+		$("#default13").click();
+		$("#default17").click();
+		$("#default19").click();
+		$("#default23").click();
+		$("#default29").click();
+		$("#default31").click();
+		DisplayNumValue = 1;
+		DisplayDenValue = 1; 
+		$("#num").val(DisplayNumValue);
+		$("#den").val(DisplayDenValue);
+		savedNum = 1;
+		savedDen = 1;
+		$("#savedNum").val(savedNum);
+		$("#savedDen").val(savedDen);
+		inputNum = 1;
+		inputDen = 1;
+		$("#inputNum").val(inputNum);
+		$("#inputDen").val(inputDen);
+		melodicRefNum = 1;
+		melodicRefDen = 1;
+		$("#melodicRefNum").val(melodicRefNum);
+		$("#melodicRefDen").val(melodicRefDen);
+		checkMelodicNum = 1;
+		checkMelodicDen = 1;
+		getMelodicRatio();
+		$("#checkMelodicNum").val(checkMelodicNum);
+		$("#checkMelodicDen").val(checkMelodicDen);
+		$("#ratioInput").click(); 
+		$("#paletteInput").click();
+		getRatio();
+		getCurrentPitch();
+		clearSave(); 
+
+	}
+	function clearFreq(){
+		$("#defaultRefoctave").click();
+		$("#defaultRefNote").click();
+		$("#defaultRefAccidental").click();
+		kammerTon = 440.000000;
+		$("#frequencyA4").val(kammerTon.toFixed(precision));
+		freq1to1 = 264.000000;
+		$("#1to1Frequency").val(freq1to1.toFixed(precision));
+	}
+	function mod(n,m) {
+		return ((n % m) + m) % m;
+	}
+	// get HE notations output 
+	function getPC(){
+		var inverseSum = inputSum
+		.DiffArray(refOctave[getRefOctave()]) 
+		.DiffArray(refNote[getRefNote()]) 
+		.DiffArray(refAccidental[getRefAccidental()]);
+
+		var referenceSum = refOctave[getRefOctave()] 
+		.DiffArray(refNote[getRefNote()]) 
+		.DiffArray(refAccidental[getRefAccidental()]);
+
+		var refArray = referenceSum.ProductArray(tonalIdentity);
+
+		
+		tonalArray = inputSum.ProductArray(tonalIdentity);
+		
+		var refArraySum = sum(refArray);
+		tonalArraySum = sum(tonalArray);
+		refpc = mod((refArraySum) + 4,7); 
+		pc = mod((tonalArraySum + 4),7);
+		outputDiatonic = diatonicOutput[pc];
+		var ref12;
+		if (refpc == 0){
+			ref12 = 9;
+		} else if (refpc == 1){
+			ref12 = 9;
+		} else if (refpc == 2){
+			ref12 = 9;
+		} else if (refpc == 3){
+			ref12 = 9;
+		} else if (refpc == 4){
+			ref12 = 9;
+		} else if (refpc == 5){
+			ref12 = 9;
+		} else if (refpc == 6){
+			ref12 = 9;
+		}
+		$("#refflat").click(function(c){ 
+			ref12acc = 1; 
+		})
+		$("#refsharp").click(function(c){ 
+			ref12acc = -1; 
+		})
+		$("#defaultRefAccidental").click(function(c){ 
+			ref12acc = 0; 
+		})
+		var note;
+		note = mod( ((((ref12 * 100) + jiCents ) / 100).toFixed(0)),12);
+		var refMidiNoteOutput = refMidiNote[note];
+		var natural;
+		var pythag;
+		var septimal;
+		var undecimal;
+		var tridecimal;
+		var seventeen;
+		var nineteen;
+		var twentyThree;
+		var twentyNine;
+		var thirtyOne;
+		var chromatic = tonalArraySum + 25;
+		var inputSumOutput;
+		// display natural on diatonic pitch classes 
+		if ($("#gann").prop("checked")){
+			inputSumOutput = inputSum;
+		} else {
+			inputSumOutput = inputSum;
+		}
+		if ((inputSum[1] == -4 || inputSum[1] == -3 || inputSum[1] == -2 || inputSum[1] == -1 || inputSum[1] == 0 || inputSum[1] == 1 || inputSum[1] == 2) && inputSumOutput[2] == 0 && inputSumOutput[3] == 0 && inputSumOutput[4] == 0 && inputSumOutput[5] == 0 && inputSumOutput[6] == 0 && inputSumOutput[7] == 0 && inputSumOutput[8] == 0 && inputSumOutput[9] == 0 && inputSumOutput[10] == 0){
+			natural = "n"; 
+		} else {
+			natural = "";
+		}
+		// rest of the combinations
+		if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == -4){
+			if (chromatic <= 6){
+				pythag = fiveUpUpUpUp[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveUpUpUpUp[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveUpUpUpUp[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveUpUpUpUp[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveUpUpUpUp[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveUpUpUpUp[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveUpUpUpUp[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == -3){
+			if (chromatic <= 6){
+				pythag = fiveUpUpUp[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveUpUpUp[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveUpUpUp[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveUpUpUp[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveUpUpUp[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveUpUpUp[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveUpUpUp[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == -2){
+			if (chromatic <= 6){
+				pythag = fiveUpUp[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveUpUp[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveUpUp[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveUpUp[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveUpUp[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveUpUp[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveUpUp[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == -1){
+			if (chromatic <= 6){
+				pythag = fiveUp[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveUp[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveUp[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveUp[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveUp[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveUp[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveUp[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == 0){
+			if (chromatic <= 6){
+				pythag = pythagOutput[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = pythagOutput[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = pythagOutput[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = pythagOutput[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = pythagOutput[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = pythagOutput[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = pythagOutput[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == 1){
+			if (chromatic <= 6){
+				pythag = fiveDown[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveDown[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveDown[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveDown[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveDown[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveDown[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveDown[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == 2){
+			if (chromatic <= 6){
+				pythag = fiveDownDown[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveDownDown[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveDownDown[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveDownDown[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveDownDown[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveDownDown[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveDownDown[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == 3){
+			if (chromatic <= 6){
+				pythag = fiveDownDownDown[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveDownDownDown[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveDownDownDown[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveDownDownDown[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveDownDownDown[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveDownDownDown[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveDownDownDown[6];
+			}
+		} else if (inputSumOutput[2] - inputSumOutput[6] - inputSumOutput[9] == 4){
+			if (chromatic <= 6){
+				pythag = fiveDownDownDownDown[0];
+			} else if (chromatic >= 7 && chromatic <= 13){
+				pythag = fiveDownDownDownDown[1];
+			} else if (chromatic >= 14 && chromatic <= 20){
+				pythag = fiveDownDownDownDown[2];
+			} else if (chromatic >= 21 && chromatic <= 27){
+				pythag = fiveDownDownDownDown[3];
+			} else if (chromatic >= 28 && chromatic <= 34){
+				pythag = fiveDownDownDownDown[4];
+			} else if (chromatic >= 35 && chromatic <= 41){
+				pythag = fiveDownDownDownDown[5];
+			} else if (chromatic >= 42 && chromatic <= 48){
+				pythag = fiveDownDownDownDown[6];
+			}
+		}
+		if (inputSumOutput[3] == -3){
+			septimal = septimalSymbols[6];
+		} else if (inputSumOutput[3] == -2){
+			septimal = septimalSymbols[5];
+		} else if (inputSumOutput[3] == -1){
+			septimal = septimalSymbols[4];
+		} else if (inputSumOutput[3] == 0){
+			septimal = septimalSymbols[3];
+		} else if (inputSumOutput[3] == 1){
+			septimal = septimalSymbols[2];
+		} else if (inputSumOutput[3] == 2){
+			septimal = septimalSymbols[1];
+		} else if (inputSumOutput[3] == 3){
+			septimal = septimalSymbols[0];
+		} 
+		if (inputSumOutput[4] - inputSumOutput[10] == 3){
+			undecimal = undecimalSymbols[6];
+		} else if (inputSumOutput[4] - inputSumOutput[10] == 2){
+			undecimal = undecimalSymbols[5];
+		} else if (inputSumOutput[4] - inputSumOutput[10] == 1){
+			undecimal = undecimalSymbols[4];
+		} else if (inputSumOutput[4] - inputSumOutput[10] == 0){
+			undecimal = undecimalSymbols[3];
+		} else if (inputSumOutput[4] - inputSumOutput[10] == -1){
+			undecimal = undecimalSymbols[2];
+		} else if (inputSumOutput[4] - inputSumOutput[10] == -2){
+			undecimal = undecimalSymbols[1];
+		} else if (inputSumOutput[4] - inputSumOutput[10] == -3){
+			undecimal = undecimalSymbols[0];
+		} 
+		if (inputSumOutput[5] == -3){
+			tridecimal = tridecimalSymbols[6];
+		} else if (inputSumOutput[5] == -2){
+			tridecimal = tridecimalSymbols[5];
+		} else if (inputSumOutput[5] == -1){
+			tridecimal = tridecimalSymbols[4];
+		} else if (inputSumOutput[5] == 0){
+			tridecimal = tridecimalSymbols[3];
+		} else if (inputSumOutput[5] == 1){
+			tridecimal = tridecimalSymbols[2];
+		} else if (inputSumOutput[5] == 2){
+			tridecimal = tridecimalSymbols[1];
+		} else if (inputSumOutput[5] == 3){
+			tridecimal = tridecimalSymbols[0];
+		} 
+		if (inputSumOutput[6] == -3){
+			seventeen = seventeenSymbols[6];
+		} else if (inputSumOutput[6] == -2){
+			seventeen = seventeenSymbols[5];
+		} else if (inputSumOutput[6] == -1){
+			seventeen = seventeenSymbols[4];
+		} else if (inputSumOutput[6] == 0){
+			seventeen = seventeenSymbols[3];
+		} else if (inputSumOutput[6] == 1){
+			seventeen = seventeenSymbols[2];
+		} else if (inputSumOutput[6] == 2){
+			seventeen = seventeenSymbols[1];
+		} else if (inputSumOutput[6] == 3){
+			seventeen = seventeenSymbols[0];
+		}
+		if (inputSumOutput[7] == -3){
+			nineteen = nineteenSymbols[0];
+		} else if (inputSumOutput[7] == -2){
+			nineteen = nineteenSymbols[1];
+		} else if (inputSumOutput[7] == -1){
+			nineteen = nineteenSymbols[2];
+		} else if (inputSumOutput[7] == 0){
+			nineteen = nineteenSymbols[3];
+		} else if (inputSumOutput[7] == 1){
+			nineteen = nineteenSymbols[4];
+		} else if (inputSumOutput[7] == 2){
+			nineteen = nineteenSymbols[5];
+		} else if (inputSumOutput[7] == 3){
+			nineteen = nineteenSymbols[6];
+		}
+		if (inputSumOutput[8] == -3){
+			twentyThree = twentyThreeSymbols[0];
+		} else if (inputSumOutput[8] == -2){
+			twentyThree = twentyThreeSymbols[1];
+		} else if (inputSumOutput[8] == -1){
+			twentyThree = twentyThreeSymbols[2];
+		} else if (inputSumOutput[8] == 0){
+			twentyThree = twentyThreeSymbols[3];
+		} else if (inputSumOutput[8] == 1){
+			twentyThree = twentyThreeSymbols[4];
+		} else if (inputSumOutput[8] == 2){
+			twentyThree = twentyThreeSymbols[5];
+		} else if (inputSumOutput[8] == 3){
+			twentyThree = twentyThreeSymbols[6];
+		}
+		if (inputSumOutput[9] == 3){
+			twentyNine = twentyNineSymbols[6];
+		} else if (inputSumOutput[9] == 2){
+			twentyNine = twentyNineSymbols[5];
+		} else if (inputSumOutput[9] == 1){
+			twentyNine = twentyNineSymbols[4];
+		} else if (inputSumOutput[9] == 0){
+			twentyNine = twentyNineSymbols[3];
+		} else if (inputSumOutput[9] == -1){
+			twentyNine = twentyNineSymbols[2];
+		} else if (inputSumOutput[9] == -2){
+			twentyNine = twentyNineSymbols[1];
+		} else if (inputSumOutput[9] == -3){
+			twentyNine = twentyNineSymbols[0];
+		}
+		if (inputSumOutput[10] == -3){
+			thirtyOne = thirtyOneSymbols[6];
+		} else if (inputSumOutput[10] == -2){
+			thirtyOne = thirtyOneSymbols[5];
+		} else if (inputSumOutput[10] == -1){
+			thirtyOne = thirtyOneSymbols[4];
+		} else if (inputSumOutput[10] == 0){
+			thirtyOne = thirtyOneSymbols[3];
+		} else if (inputSumOutput[10] == 1){
+			thirtyOne = thirtyOneSymbols[2];
+		} else if (inputSumOutput[10] == 2){
+			thirtyOne = thirtyOneSymbols[1];
+		} else if (inputSumOutput[10] == 3){
+			thirtyOne = thirtyOneSymbols[0];
+		}
+		var notationString;
+		var undefinedNotation;
+		if (thirtyOne == null || twentyNine == null || twentyThree == null || nineteen == null || seventeen == null || tridecimal == null || undecimal == null || septimal == null || pythag == null || natural == null) {
+			notationString = "";
+			outputDiatonic = "";
+			undefinedNotation = "undefined";
+		} else {
+			notationString = thirtyOne + twentyNine + twentyThree +  nineteen + seventeen + tridecimal + undecimal + septimal + pythag + natural;
+			undefinedNotation = "";
+		}
+		$("#notationOutput").html(notationString);
+		$("#noteName").html(outputDiatonic);
+		$("#undefinedNotation").html(undefinedNotation);
+		$("#midiNote").text(refMidiNoteOutput);
+	}
+</script>
+</head>
+<body onload="doClear();clearFreq()">
+	<center>
+		<h1> Johnston Notation to Helmholtz-Ellis Converter</h1>
+		<a href="infoJohnston.html">information</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.plainsound.org" target=_blank>plainsound.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.php">return to HE-Calc</a><br>
+		<br>
+		<table>
+			<tr align="center">
+				<td style="min-width:275px" nowrap>
+					<h2><b>REFERENCE</b><br>spelling of 1/1</h2>
+				</td>
+				<td nowrap>
+					<h2><b>INPUT</b><br>Johnston Notation
+					</td>
+				<!-- <td nowrap>
+					<h2><b>INPUT</b><br><input type="radio" name="inputType" id="ratioInput"> ratio</h2>
+				</td> -->
+				<td style="min-width:280px" nowrap>
+					<h2><b>OUTPUT</b><br>HE Notation
+					</td>
+					<td nowrap>
+						<h2><b>MELODIC DISTANCE</b><br>from interval A to B<br></h2>
+					</td>
+			</tr>
+			<tr align="center">
+				<td nowrap>
+					<em>octave</em>
+					<br>
+					<button class="refOctave" value="0">0</button>
+					<button class="refOctave" value="1">1</button>
+					<button class="refOctave" value="2">2</button>
+					<button class="refOctave" value="3">3</button>
+					<button id="defaultRefoctave" class="refOctave selected" value="4">4</button>
+					<button class="refOctave" value="5">5</button>
+					<button class="refOctave" value="6">6</button>
+					<button class="refOctave" value="7">7</button>
+					<br>
+					<em>diatonic pitch (Johnston)</em>
+					<br>
+					<button id="defaultRefNote" class="refNote selected" value="0">C</button>
+					<button class="refNote" value="1">D</button>
+					<button class="refNote" value="2">E</button>
+					<button class="refNote" value="3">F</button>
+					<button class="refNote" value="4">G</button>
+					<button class="refNote" value="5">A</button>
+					<button class="refNote" value="6">B</button> 
+					<br>
+					<em>chromatic (Johnston)</em>
+					<br>
+					<button id="refflat" class="refAccidental" value="0">"</button>
+					<button id="defaultRefAccidental" class="refAccidental selected" value="1">'</button>
+					<button id="refsharp" class="refAccidental" value="2">!</button>
+					<br>
+					<em>frequency of Johnston 1/1 (Hz)</em>
+					<br>
+					<input type="number" style="text-align:center;font-size:12pt" id="1to1Frequency" value="264.000000"></input>
+					<br>
+					<em>frequency of Johnston A4 (Hz)</em>
+					<br>
+					<input type="number" style="text-align:center;font-size:12pt" id="frequencyA4" value="440.000000"></input>
+					<br>
+					<button style="font-size:12pt;" id="clearFreq" class="clearFreq" onclick="clearFreq()">reset</button>	
+					<br>
+					<br>
+					<input type="checkbox" name="gann" id="gann"> C (Johnston) = C (HE)
+					<!-- <input type="checkbox" name="cIsZero" id="cIsZero"> make C = 0 cents --> 
+				</td>
+				<td nowrap>
+					<em>octave</em>
+					<br>
+					<button class="octave" value="0">0</button>
+					<button class="octave" value="1">1</button>
+					<button class="octave" value="2">2</button>
+					<button class="octave" value="3">3</button>
+					<button id="defaultOctave" class="octave selected" value="4">4</button>
+					<button class="octave" value="5">5</button>
+					<button class="octave" value="6">6</button>
+					<button class="octave" value="7">7</button>
+					<br>
+					<em>diatonic pitch</em>
+					<br>
+					<button class="notes" value="0">C</button>
+					<button class="notes" value="1">D</button>
+					<button class="notes" value="2">E</button>
+					<button class="notes" value="3">F</button>
+					<button class="notes" value="4">G</button>
+					<button id="Anatural" class="notes selected" value="5">A</button>
+					<button class="notes" value="6">B</button> 
+					<br> 
+					<em>accidentals</em>
+					<br>
+					<button class="chromatic" value="0">&</button> 
+					<button class="chromatic" value="1">$</button> 
+					<button class="chromatic" value="2">"</button> 
+					<button id="default3" class="chromatic selected" value="3">'</button> 
+					<button class="chromatic" value="4">!</button> 
+					<button class="chromatic" value="5">#</button> 
+					<button class="chromatic" value="6">%</button> 
+					<br>
+					<button class="syntonic" value="0">) ) )</button> 
+					<button class="syntonic" value="1">) )</button> 
+					<button class="syntonic" value="2">)</button> 
+					<button id="default5" class="syntonic selected" value="3">'</button> 
+					<button class="syntonic" value="4">(</button> 
+					<button class="syntonic" value="5">( (</button>
+					<button class="syntonic" value="6">( ( (</button>
+					<br>
+					<button class="septimal" value="0">+++</button>
+					<button class="septimal" value="1">++</button> 
+					<button class="septimal" value="2">+</button> 
+					<button id="default7" class="septimal selected" value="3">'</button> 
+					<button class="septimal" value="4">*</button> 
+					<button class="septimal" value="5">**</button>
+					<button class="septimal" value="6">***</button>
+					<br>
+					<button class="undecimal" value="0">---</button> 
+					<button class="undecimal" value="1">--</button> 
+					<button class="undecimal" value="2">-</button> 
+					<button id="default11" class="undecimal selected" value="3">'</button> 
+					<button class="undecimal" value="4">,</button> 
+					<button class="undecimal" value="5">,,</button>
+					<button class="undecimal" value="6">,,,</button>
+					<br>
+					<button class="tridecimal" value="0">/ / /</button> 
+					<button class="tridecimal" value="1">/ /</button> 
+					<button class="tridecimal" value="2">/</button> 
+					<button id="default13" class="tridecimal selected" value="3">'</button> 
+					<button class="tridecimal" value="4">.</button> 
+					<button class="tridecimal" value="5">. .</button>
+					<button class="tridecimal" value="6">. . .</button>
+					<br>
+
+					<button class="seventeen" value="0">1 1 1</button> 
+					<button class="seventeen" value="1">1 1</button> 
+					<button class="seventeen" value="2">1</button> 
+					<button id="default17" class="seventeen selected" value="3">'</button> 
+					<button class="seventeen" value="4">0</button> 
+					<button class="seventeen" value="5">0 0</button> 
+					<button class="seventeen" value="6">0 0 0</button> 
+					<br>
+					<button class="nineteen" value="0">2 2 2</button> 
+					<button class="nineteen" value="1">2 2</button> 
+					<button class="nineteen" value="2">2</button> 
+					<button id="default19" class="nineteen selected" value="3">'</button> 
+					<button class="nineteen" value="4">3</button> 
+					<button class="nineteen" value="5">3 3</button>
+					<button class="nineteen" value="6">3 3 3</button>
+					<br>
+					<button class="twentyThree" value="0">5 5 5</button> 
+					<button class="twentyThree" value="1">5 5</button>  
+					<button class="twentyThree" value="2">5</button> 
+					<button id="default23" class="twentyThree selected" value="3">'</button> 
+					<button class="twentyThree" value="4">4</button> 
+					<button class="twentyThree" value="5">4 4</button> 
+					<button class="twentyThree" value="6">4 4 4</button> 
+					<br>
+					<button class="twentyNine" value="0">7 7 7</button> 
+					<button class="twentyNine" value="1">7 7</button> 
+					<button class="twentyNine" value="2">7</button> 
+					<button id="default29" class="twentyNine selected" value="3">'</button> 
+					<button class="twentyNine" value="4">6</button> 
+					<button class="twentyNine" value="5">6 6</button> 
+					<button class="twentyNine" value="6">6 6 6</button> 
+					<br>
+					<button class="thirtyOne" value="0">9 9 9</button> 
+					<button class="thirtyOne" value="1">9 9</button> 
+					<button class="thirtyOne" value="2">9</button> 
+					<button id="default31" class="thirtyOne selected" value="3">'</button> 
+					<button class="thirtyOne" value="4">8</button> 
+					<button class="thirtyOne" value="5">8 8</button> 
+					<button class="thirtyOne" value="6">8 8 8</button>  
+					<br>
+				</td>
+				<td nowrap>
+					<em>ratio</em>
+					<br>
+					<div style="text-align:center;font-size:18pt;text-decoration:underline" id="num" value="1"></div>
+					<div style="text-align:center;font-size:18pt" id="den" value="1"></div>
+					<br>
+					<em>notation</em>
+					<em><div id="undefinedNotation"></div></em>
+					<br>
+					<div style="display: inline" class="notationOutput" id="notationOutput"></div><div style="display: inline" class="noteName" id="noteName"></div>
+					<br>
+					<br>
+					<em>cent deviation<br>(ref = A)</em>
+					<br>
+					<div style="font-size:14pt;font-family:'Roboto Condensed';font-style:bold;" id="midiNote"></div> 
+					<strong><div id="cents" value="0">0</div></strong>
+					<br>
+					<em>interval to ref (cents)</em>
+					<strong><div id="JIgross" value="0">0</div></strong>
+					<em>frequency (Hz)</em>
+					<strong><div type="text" id="frequency" value="440">440.000000</div></strong>
+					<em>Tenney harmonic distance HD </em>
+					<br>
+					<strong><div id="hd" value="0">0</div></strong>
+					<br>
+					<br>
+					<button class="clear" onclick="doClear();doClear()">clear all</button>
+				</td>
+				<td nowrap>
+					<em>interval A</em>
+					<br>
+					<input type="number" style="text-align:center;font-size:12pt" id="melodicRefNum" value="1" readonly></input>
+					<br>
+					<input type="number" style="text-align:center;font-size:12pt" id="melodicRefDen" value="1" readonly></input>
+					<br>
+					<button style="font-size:12pt;" id="getMelodicReference"class="getMelodicReference" onclick="getMelodicReference()">save current</button>
+					<button style="font-size:12pt;" id="clearMelodicSave"class="clearMelodicSave" onclick="clearMelodicSave()">reset</button>
+					<br>
+					<em>interval B</em>
+					<br>
+					<input type="number" style="text-align:center;font-size:12pt" id="checkMelodicNum" value="1" readonly></input>
+					<br>
+					<input type="number" style="text-align:center;font-size:12pt" id="checkMelodicDen" value="1" readonly></input>
+					<br>
+					<button style="font-size:12pt;" id="getMelodic"class="getMelodic" onclick="getMelodicCheck()">check current</button>
+					<br><br>
+					<em>melodic ratio</em>
+					<br>
+					<span style="text-align:center;font-size:16pt" id="melodicDen">1</span> : <span style="text-align:center;font-size:16pt;" id="melodicNum">1</span>
+					<p style="margin-bottom:-3px;"></p>
+					<em>melodic step (cents)</em>
+					<br>
+					<strong><div id="melodicCents">0.00</div></strong>
+					<em>frequency difference (Hz)</em>
+					<br>
+					<strong><div id="freqDiff">0.000000</div></strong>
+					<em>HD</em>
+					<br>
+					<strong><div id="melodicHD">0.000000</div></strong>
+				</td>
+			</tr>
+		</table>
+	</center>
+</body>
+</html>
