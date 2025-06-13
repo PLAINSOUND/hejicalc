@@ -1,0 +1,351 @@
+
+@font-face {
+    font-family: "HEJI";
+    src: url("HEJI.otf") format("opentype");
+}
+@font-face {
+    font-family: "HEJI2Bravura";
+    src: url("HEJI2Bravura.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+html {
+    min-height: 100%;
+    --bg-main: #faf9f8;
+    --bg-header: #f2f3f4;
+    --bg-button: #fff6e8;
+    --bg-button-selected: #d4ffc6;
+    --bg-button-clear: #e3e4e5;
+    --bg-button-get: #d4ffc6;
+    --border-button: gray;
+    --color-palette-labels: gray;
+    --color-text: black;
+    --color-em: black;
+    --color-link: #990000;
+    --color-link-hover: #ff0000;
+    --color-input: #f2f3f4;
+}
+
+html[data-theme='dark'] {
+    --bg-main: #303030;
+    --bg-header: #282828;
+    --bg-button: #66757F;
+    --bg-button-selected: #D3E6D1;
+    --bg-button-clear: #DCDCDC;
+    --bg-button-get: #D3E6D1;
+    --border-button: #a8b8a7;
+    --color-palette-labels: #a8b8a7;
+    --color-text: #DCDCDC;
+    --color-em: #D3E6D1;
+    --color-link: #00BFFF;
+    --color-link-hover: #66757F;
+    --color-input: #D3D3D3;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--color-text);
+}
+
+h1 {
+    color: var(--color-text);
+    font-weight: 400;
+    font-size: 1.6rem;
+    padding-bottom: 0.33rem;
+    letter-spacing: 0.05rem;
+}
+
+h1 > span {
+    font-weight: 300;
+}
+
+h2 {
+    color: var(--color-text);
+    font-size: 1.25rem;
+}
+
+h3 {
+    font-weight: normal;
+    color: var(--color-text);
+    font-size: 1.25rem;
+}
+
+.software {
+    padding-top: 1.2rem;
+}
+
+div {
+    color: var(--color-text);
+}
+
+span {
+    color: var(--color-text);
+}
+
+em {
+    color: var(--color-em);
+}
+
+strong {
+    color: var(--color-text);
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-link);
+}
+
+p {
+    text-align: center;
+    color: var(--color-text);
+    line-height: 1.35rem;
+}
+
+i {
+    color: var(--color-text);
+}
+
+a:hover {
+    color: var(--color-link-hover);
+}
+
+.header {
+    color: var(--color-text);
+    background-color: var(--bg-header);
+    text-align: center;
+    padding: 1rem;
+}
+
+.precision {
+    color: var(--color-text);
+    text-align: center;
+    padding: 1rem;
+}
+
+label {
+    color: var(--color-text);
+}
+
+input {
+    background-color: var(--color-input);
+    text-align: center;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0;
+}
+
+div.version {
+    padding-bottom: 0.5rem;
+}
+
+.calc-container {
+    display: grid;
+    align-items: top;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    row-gap: 3rem;
+}
+
+.calc-container > div {
+    text-align: center;
+}
+
+.refbox {
+    min-width: 306px;
+}
+
+.palettebox {
+    min-width: 350px;
+}
+
+.ratiobox{
+    min-width: 250px;
+
+}
+
+.outputbox {
+    min-width: 266px;
+}
+
+.outputbox p {
+    padding-top: 0.2rem;
+}
+
+.melodicbox {
+    min-width: 182px;
+}
+
+.scalabox{
+    display: none;
+    min-width: 176px;
+}
+
+.input-types {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.software-bends {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+    row-gap: 0.2rem;
+    padding-bottom: 0.25rem;
+}
+
+.software-type {
+    text-align: right;
+}
+
+.bend {
+    text-align: left;
+}
+
+.pbrange {
+    padding-top: 0.25rem;
+}
+
+.first {
+    padding-top: 0.75rem;
+}
+
+button {
+    font-size: 1rem;
+    background-color: var(--bg-button);
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid var(--border-button);
+    padding: 0.125rem 0.375rem;
+    margin: 0.25rem 0;
+}
+
+button.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental, .spacer {
+    height: 3.125rem;
+    width: 2.5rem;
+    border: 1px solid var(--border-button);
+    position: relative;
+    border-radius: 35%;
+    margin: 0;
+}
+
+.label {
+    color: var(--color-palette-labels);
+}
+
+.octave, .notes, .refOctave, .refNote {
+    border-radius: 50%;
+}
+
+.chromatic, .syntonic, .septimal, .undecimal, .tridecimal, .seventeen, .nineteen, .twentyThree, .twentyNine, .thirtyOne, .refAccidental {
+    font-family: "HEJI";
+    font-size: 1.67rem;
+    position: relative;
+}
+
+.refNote, .refOctave, .octave, .notes {
+    font-size: 1rem;
+}
+
+.notationOutput{
+    color: var(--color-text);
+    font-family: "HEJI2Bravura";
+    font-size: 2.3rem;
+    display: inline-flex;
+    margin-top: -2.5rem;
+    margin-bottom: -3rem;
+}
+
+#num {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    text-decoration:underline;
+}
+
+#den {
+    margin-top: -0.3125rem;
+    color: var(--color-text);
+    font-size: 1.5rem;
+}
+
+.noteName{
+    color: var(--color-text);
+    font-family: "HEJI";
+    font-size: 2.3rem;
+    display: inline;
+}
+
+.clear {
+    font-size: 1.3rem;
+}
+
+select {
+    border: none;
+    background-color: var(--color-input);
+    padding: -1rem;
+    font-size: inherit;
+}
+
+.selected {
+    background-color: var(--bg-button-selected);
+    border: 1px solid var(--border-button);
+}
+
+.clearFreq, .clear, .clearSave, .clearMelodic, .clearMelodicSave, .clearInputRatio, .clearEnharmonic {
+    border-radius: 0.375rem;
+    background-color: var(--bg-button-clear);
+    border: 1px solid var(--border-button);
+}
+
+.getMelodic, .getMelodicReference, .getCurrentPitch, .getEnharmonic {
+    border-radius: 0.375rem;
+    background-color: var(--bg-button-get);
+    border: 1px solid var(--border-button);
+}
+
+.header-content {
+    display: inline-flex;
+    align-items: center;
+    padding-top: 0.25rem;
+}
+
+.output-content {
+    padding-bottom: 0.5rem;
+}
+
+.plainsound {
+    justify-self: right;
+}
+
+.darkmode {
+    justify-self: left;
+}
+
+.enharmonic-search {
+    display: none;
+    width: 100%;
+    text-align: center;
+    padding-top: 3rem;
+}
+
+table.enharmonic-table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+table.enharmonic-table > tr, td, th {
+    padding: 1rem;
+}
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+
