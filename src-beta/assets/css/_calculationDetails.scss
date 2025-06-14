@@ -1,0 +1,46 @@
+.notation-output {
+    display: inline-block;
+
+    .accidental-string {
+        display: inline-block;
+        font-size: 2.3rem;
+    }
+
+    .diatonic-note {
+        display: inline-block;
+        font-size: 2.3rem;
+    }
+
+    .accidental-preview, .note-preview {
+        font-size: 1.3rem;
+    }
+}
+
+.output-ratio {
+    padding-top: 15px;
+    display: inline-block;
+}
+
+.numerator, .denominator {
+    font-size: 1.8rem;
+    padding: 0 2px;
+}
+
+.numerator {
+    border-bottom: 2px black solid;
+}
+
+.numerator-preview {
+        border: none;
+    }
+
+.output-preview, .numerator-preview, .denominator-preview {
+    display: inline;
+    font-size: 1rem;
+
+}
+
+.output-preview .output-ratio {
+    padding: 0;
+}
+

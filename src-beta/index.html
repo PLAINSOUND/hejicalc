@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="./assets/javascript/main.js"
+      defer
+    ></script>
+    <!--  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="shortcut icon" type="image/icon" href="assets/images/logo.png" />
+    <title>HEJICalc</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="head">
+          <div class="app-title">HEJICalc</div>
+          <div class="output-preview">
+            <div class="output-ratio">
+              <div class="numerator numerator-preview"></div>
+              /
+              <div class="denominator denominator-preview"></div>
+            </div>
+            &bull;
+            <div class="notation-output">
+              <div class="accidental-string accidental-preview"></div>
+              <div class="diatonic-note note-preview"></div>
+            </div>
+            &bull; A+43c
+          </div>
+          <div class="settings-info">
+            <button id="settings">
+              <span class="material-icons-outlined">settings</span>
+            </button>
+            <button id="info">
+              <span class="material-icons-outlined">info</span>
+            </button>
+          </div>
+        </div>
+        <div class="tab">
+          <button class="tab-links" id="notation-tab">Notation input</button>
+          <button class="tab-links" id="ratio-tab">Ratio input</button>
+          <!-- <button class="tab-links" id="compare-tab">Ratio comparison</button> -->
+          <button class="tab-links" id="calculate-tab">Output details</button>
+        </div>
+      </div>
+
+      <!-- Notation fragment -->
+      <div id="notation-fragment" class="tab-content">
+        <div class="input-octave">
+          <div class="btn-group-head">Octave (middle C = 4)</div>
+          <div class="btn-group">
+            <button class="octave-btn" value="0">&minus;5</button>
+            <button class="octave-btn" value="1">&minus;4</button>
+            <button class="octave-btn" value="2">&minus;3</button>
+            <button class="octave-btn" value="3">&minus;2</button>
+            <button class="octave-btn" value="4">&minus;1</button>
+            <button class="octave-btn" value="5">0</button>
+            <button class="octave-btn" value="6">1</button>
+            <button class="octave-btn" value="7">2</button>
+            <button class="octave-btn" value="8">3</button>
+            <button class="octave-btn" value="9">4</button>
+            <button class="octave-btn" value="10">5</button>
+            <button class="octave-btn" value="11">6</button>
+            <button class="octave-btn" value="12">7</button>
+          </div>
+        </div>
+        <div class="input-diatonic">
+          <div class="btn-group-head">Pythagorean diatonic pitch</div>
+          <div class="btn-group">
+            <button class="diatonic-btn" value="0">F</button>
+            <button class="diatonic-btn" value="1">C</button>
+            <button class="diatonic-btn" value="2">G</button>
+            <button class="diatonic-btn" value="3">D</button>
+            <button class="diatonic-btn" value="4">A</button>
+            <button class="diatonic-btn" value="5">E</button>
+            <button class="diatonic-btn" value="6">B</button>
+          </div>
+        </div>
+        <div class="input-accidental">
+          <div class="btn-group-head">HEJI accidental</div>
+          <div class="btn-group">
+            <button class="pythagorean-btn" value="0">*f*F</button>
+            <button class="pythagorean-btn" value="1">*F</button>
+            <button class="pythagorean-btn" value="2">*f</button>
+            <button class="pythagorean-btn" value="3">( *n )</button>
+            <button class="pythagorean-btn" value="4">*s</button>
+            <button class="pythagorean-btn" value="5">*S</button>
+            <button class="pythagorean-btn" value="6">*s*S</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>5&#xee5b; &rightarrow;</div>
+            <div>&leftarrow; &#xee5a;5</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="five-btn" value="0">*u23*u23*u23</button>
+            <button class="five-btn" value="1">*u23*u23</button>
+            <button class="five-btn" value="2">*u23</button>
+            <button class="five-btn" value="3">( *n )</button>
+            <button class="five-btn" value="4">*o23</button>
+            <button class="five-btn" value="5">*o23*o23</button>
+            <button class="five-btn" value="6">*o23*o23*o23</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>7&#xee5b; &rightarrow;</div>
+            <div>&leftarrow; &#xee5a;7</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="seven-btn" value="0">*o7*o49</button>
+            <button class="seven-btn" value="1">*o49</button>
+            <button class="seven-btn" value="2">*o7</button>
+            <button class="seven-btn" value="3">( *n )</button>
+            <button class="seven-btn" value="4">*u7</button>
+            <button class="seven-btn" value="5">*u49</button>
+            <button class="seven-btn" value="6">*u7*u49</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;11 &rightarrow;</div>
+            <div>&leftarrow; 11&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="eleven-btn" value="0">*u11*u11*u11</button>
+            <button class="eleven-btn" value="1">*u11*u11</button>
+            <button class="eleven-btn" value="2">*u11</button>
+            <button class="eleven-btn" value="3">( *n )</button>
+            <button class="eleven-btn" value="4">*o11</button>
+            <button class="eleven-btn" value="5">*o11*o11</button>
+            <button class="eleven-btn" value="6">*o11*o11*o11</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>13&#xee5b; &rightarrow;</div>
+            <div>&leftarrow; &#xee5a;13</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="thirteen-btn" value="0">*o13*o13*o13</button>
+            <button class="thirteen-btn" value="1">*o13*o13</button>
+            <button class="thirteen-btn" value="2">*o13</button>
+            <button class="thirteen-btn" value="3">( *n )</button>
+            <button class="thirteen-btn" value="4">*u13</button>
+            <button class="thirteen-btn" value="5">*u13*u13</button>
+            <button class="thirteen-btn" value="6">*u13*u13*u13</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>17&#xee5b; &rightarrow;</div>
+            <div>&leftarrow; &#xee5a;17</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="seventeen-btn" value="0">*o17*o17*o17</button>
+            <button class="seventeen-btn" value="1">*o17*o17</button>
+            <button class="seventeen-btn" value="2">*o17</button>
+            <button class="seventeen-btn" value="3">( *n )</button>
+            <button class="seventeen-btn" value="4">*u17</button>
+            <button class="seventeen-btn" value="5">*u17*u17</button>
+            <button class="seventeen-btn" value="6">*u17*u17*u17</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;19 &rightarrow;</div>
+            <div>&leftarrow; 19&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="nineteen-btn" value="0">*u19*u19*u19</button>
+            <button class="nineteen-btn" value="1">*u19*u19</button>
+            <button class="nineteen-btn" value="2">*u19</button>
+            <button class="nineteen-btn" value="3">( *n )</button>
+            <button class="nineteen-btn" value="4">*o19</button>
+            <button class="nineteen-btn" value="5">*o19*o19</button>
+            <button class="nineteen-btn" value="6">*o19*o19*o19</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;23 &rightarrow;</div>
+            <div>&leftarrow; 23&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="twentythree-btn" value="0">*u23*u23*u23</button>
+            <button class="twentythree-btn" value="1">*u23*u23</button>
+            <button class="twentythree-btn" value="2">*u23</button>
+            <button class="twentythree-btn" value="3">( *n )</button>
+            <button class="twentythree-btn" value="4">*o23</button>
+            <button class="twentythree-btn" value="5">*o23*o23</button>
+            <button class="twentythree-btn" value="6">*o23*o23*o23</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;29 &rightarrow;</div>
+            <div>&leftarrow; 29&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="twentynine-btn" value="0">*u29*u29*u29</button>
+            <button class="twentynine-btn" value="1">*u29*u29</button>
+            <button class="twentynine-btn" value="2">*u29</button>
+            <button class="twentynine-btn" value="3">( *n )</button>
+            <button class="twentynine-btn" value="4">*o29</button>
+            <button class="twentynine-btn" value="5">*o29*o29</button>
+            <button class="twentynine-btn" value="6">*o29*o29*o29</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>31&#xee5b; &rightarrow;</div>
+            <div>&leftarrow; &#xee5a;31</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="thirtyone-btn" value="0">*o31*o31*o31</button>
+            <button class="thirtyone-btn" value="1">*o31*o31</button>
+            <button class="thirtyone-btn" value="2">*o31</button>
+            <button class="thirtyone-btn" value="3">( *n )</button>
+            <button class="thirtyone-btn" value="4">*u31</button>
+            <button class="thirtyone-btn" value="5">*u31*u31</button>
+            <button class="thirtyone-btn" value="6">*u31*u31*u31</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;37 &rightarrow;</div>
+            <div>&leftarrow; 37&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="thirtyseven-btn" value="0">*u37*u37*u37</button>
+            <button class="thirtyseven-btn" value="1">*u37*u37</button>
+            <button class="thirtyseven-btn" value="2">*u37</button>
+            <button class="thirtyseven-btn" value="3">( *n )</button>
+            <button class="thirtyseven-btn" value="4">*o37</button>
+            <button class="thirtyseven-btn" value="5">*o37*o37</button>
+            <button class="thirtyseven-btn" value="6">*o37*o37*o37</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;41 &rightarrow;</div>
+            <div>&leftarrow; 41&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="fortyone-btn" value="0">*u41*u41*u41</button>
+            <button class="fortyone-btn" value="1">*u41*u41</button>
+            <button class="fortyone-btn" value="2">*u41</button>
+            <button class="fortyone-btn" value="3">( *n )</button>
+            <button class="fortyone-btn" value="4">*o41</button>
+            <button class="fortyone-btn" value="5">*o41*o41</button>
+            <button class="fortyone-btn" value="6">*o41*o41*o41</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>&#xee5a;43 &rightarrow;</div>
+            <div>&leftarrow; 43&#xee5b;</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="fortythree-btn" value="0">*u43*u43*u43</button>
+            <button class="fortythree-btn" value="1">*u43*u43</button>
+            <button class="fortythree-btn" value="2">*u43</button>
+            <button class="fortythree-btn" value="3">( *n )</button>
+            <button class="fortythree-btn" value="4">*o43</button>
+            <button class="fortythree-btn" value="5">*o43*o43</button>
+            <button class="fortythree-btn" value="6">*o43*o43*o43</button>
+          </div>
+          <div class="btn-group-prime">
+            <div>47&#xee5b; &rightarrow;</div>
+            <div>&leftarrow; &#xee5a;47</div>
+          </div>
+          <div class="btn-group offset">
+            <button class="fortyseven-btn" value="0">*o47*o47*o47</button>
+            <button class="fortyseven-btn" value="1">*o47*o47</button>
+            <button class="fortyseven-btn" value="2">*o47</button>
+            <button class="fortyseven-btn" value="3">( *n )</button>
+            <button class="fortyseven-btn" value="4">*u47</button>
+            <button class="fortyseven-btn" value="5">*u47*u47</button>
+            <button class="fortyseven-btn" value="6">*u47*u47*u47</button>
+          </div>
+        </div>
+        <br />
+        <button class="outlined-btn reset-btn" id="notation-reset">
+          RESET HEJI PALETTE
+        </button>
+      </div>
+
+      <!-- Ratio fragment -->
+      <div id="ratio-fragment" class="tab-content">
+        <div class="ratio">
+          <div class="input-head optional">Offset ratio</div>
+          <div class="input-field">
+            <label>Numerator</label>
+            <input type="number" id="offset-num" />
+          </div>
+          <div class="fraction-divider"></div>
+          <div class="input-field">
+            <label>Denominator</label>
+            <input type="number" id="offset-den" />
+          </div>
+        </div>
+        <br />
+        <button class="outlined-btn load-btn" id="offset-load">
+          LOAD CURRENT OUTPUT
+        </button>
+        <br />
+        <button class="outlined-btn reset-btn" id="offset-reset">
+          RESET OFFSET
+        </button>
+        <br />
+        <div class="ratio head-room-24">
+          <div class="input-head">Input ratio</div>
+          <div class="input-field">
+            <label>Numerator</label>
+            <input type="number" id="input-num" />
+          </div>
+          <div class="fraction-divider"></div>
+          <div class="input-field">
+            <label>Denominator</label>
+            <input type="number" id="input-den" />
+          </div>
+        </div>
+        <br />
+        <button class="outlined-btn load-btn" id="input-load">
+          LOAD CURRENT OUTPUT
+        </button>
+        <br />
+        <button class="outlined-btn reset-btn" id="input-reset">
+          RESET INPUT
+        </button>
+      </div>
+
+      <!-- Compare fragment 
+      <div id="melodic-fragment" class="tab-content">
+        <div class="ratio">
+          <div class="input-head">Ratio A</div>
+          <div class="input-field">
+            <label>Numerator</label>
+            <input type="number" id="melodic-a-num" />
+          </div>
+          <div class="fraction-divider"></div>
+          <div class="input-field">
+            <label>Denominator</label>
+            <input type="number" id="melodic-a-den" />
+          </div>
+        </div>
+        <br />
+        <button class="outlined-btn load-btn" id="melodic-a-load">
+          LOAD CURRENT OUTPUT
+        </button>
+        <br />
+        <button class="outlined-btn reset-btn" id="melodic-a-reset">
+          RESET TO 1/1
+        </button>
+        <br />
+        <div class="ratio head-room-24">
+          <div class="input-head">Ratio B</div>
+          <div class="input-field">
+            <label>Numerator</label>
+            <input type="number" id="melodic-b-num" />
+          </div>
+          <div class="fraction-divider"></div>
+          <div class="input-field">
+            <label>Denominator</label>
+            <input type="number" id="melodic-b-den" />
+          </div>
+        </div>
+        <br />
+        <button class="outlined-btn load-btn" id="melodic-b-load">
+          LOAD CURRENT OUTPUT
+        </button>
+        <br />
+        <button class="outlined-btn reset-btn" id="melodic-b-reset">
+          RESET TO 1/1
+        </button>
+      </div>
+
+      -->
+
+      <!-- Calculate fragment -->
+      <div id="calculate-fragment" class="tab-content">
+        <div class="output-ratio">
+          <div class="numerator"></div>
+          <div class="denominator"></div>
+        </div>
+        <br />
+        <div class="notation-output">
+          <div class="accidental-string"></div>
+          <div class="diatonic-note"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings modal -->
+    <div class="modal" id="settings-modal">
+      <div class="modal-content">
+        <div class="modal-close">
+          <button id="close-settings">
+            <span class="material-icons-outlined">task_alt</span>
+          </button>
+        </div>
+        <div class="modal-header">Settings</div>
+        <div class="settings">
+          <h3>Calculator precision</h3>
+          <div class="head-room-15">
+            <select id="settings-precision">
+              <option value="6">6</option>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1" selected>1</option>
+              <option value="0">0</option>
+            </select>
+            decimal places
+          </div>
+          <h3>Pitch class and frequency of 1/1</h3>
+          <div class="settings-octave">
+            <div class="btn-group-head">Octave (SPN)</div>
+            <div class="btn-group">
+              <button class="settings-octave-btn" value="0">&minus;5</button>
+              <button class="settings-octave-btn" value="1">&minus;4</button>
+              <button class="settings-octave-btn" value="2">&minus;3</button>
+              <button class="settings-octave-btn" value="3">&minus;2</button>
+              <button class="settings-octave-btn" value="4">&minus;1</button>
+              <button class="settings-octave-btn" value="5">0</button>
+              <button class="settings-octave-btn" value="6">1</button>
+              <button class="settings-octave-btn" value="7">2</button>
+              <button class="settings-octave-btn" value="8">3</button>
+              <button class="settings-octave-btn" value="9">4</button>
+              <button class="settings-octave-btn" value="10">5</button>
+              <button class="settings-octave-btn" value="11">6</button>
+              <button class="settings-octave-btn" value="12">7</button>
+            </div>
+          </div>
+          <div class="settings-diatonic">
+            <div class="btn-group-head">Tempered diatonic pitch</div>
+            <div class="btn-group">
+              <button class="settings-diatonic-btn" value="0">F</button>
+              <button class="settings-diatonic-btn" value="1">C</button>
+              <button class="settings-diatonic-btn" value="2">G</button>
+              <button class="settings-diatonic-btn" value="3">D</button>
+              <button class="settings-diatonic-btn" value="4">A</button>
+              <button class="settings-diatonic-btn" value="5">E</button>
+              <button class="settings-diatonic-btn" value="6">B</button>
+            </div>
+          </div>
+          <div class="settings-diatonic">
+            <div class="btn-group-head">Tempered chromatic accidental</div>
+            <div class="btn-group">
+              <button class="settings-chromatic-btn" value="2">a</button>
+              <button class="settings-chromatic-btn" value="3">j</button>
+              <button class="settings-chromatic-btn" value="4">z</button>
+            </div>
+          </div>
+          <div>
+            <div class="input-head">Frequency of 1/1</div>
+            <div class="input-field">
+              <input type="number" id="settings-unity-frequency" /> Hz
+            </div>
+          </div>
+          <h3>Tuning meter settings</h3>
+          <div class="radio-group">
+            <div>
+              <input
+                type="radio"
+                id="settings-unity-0-cents"
+                name="settings-tuning-meter"
+                value="zero"
+              />
+              <label for="settings-unity-0-cents">1/1 = 0 cents</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="settings-unity-cents-relative"
+                name="settings-tuning-meter"
+                value="relative"
+              />
+              <label for="settings-unity-cents-relative"
+                >1/1 cents relative to meter setting</label
+              >
+            </div>
+          </div>
+          <div>
+            <div class="input-head">Frequency of tempered A4 (Kammerton)</div>
+            <div class="input-field">
+              <input type="number" id="settings-kammerton-frequency" disabled />
+              Hz
+            </div>
+          </div>
+          <h3>Calculation</h3>
+          <div class="radio-group">
+            <div>
+              <input type="checkbox" id="settings-normalise" />
+              <label for="settings-normalise"
+                >Normalise the output between 1/1 and 2/1</label
+              >
+            </div>
+          </div>
+          <h3>Software pitch bends</h3>
+          <div class="radio-group">
+            <div class="btn-group-head">Calculate with respect to:</div>
+            <div class="no-top-padding">
+              <input
+                type="radio"
+                id="settings-pb-diatonic"
+                name="settings-pb-midi-pitch"
+                value="diatonic"
+              />
+              <label for="settings-pb-diatonic">Diatonic MIDI pitch</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="settings-pb-chromatic"
+                name="settings-pb-midi-pitch"
+                value="chromatic"
+              />
+              <label for="settings-pb-chromatic">Chromatic MIDI pitch</label>
+            </div>
+          </div>
+          <div>
+            <div class="btn-group-head">Sibelius pitch bend range</div>
+            <select id="settings-sibelius-pb-range">
+              <option value="100">100</option>
+              <option value="200" selected>200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="1000">1000</option>
+              <option value="1100">1100</option>
+              <option value="1200">1200</option>
+            </select>
+            cents
+          </div>
+          <div>
+            <div class="btn-group-head">Finale pitch bend range</div>
+            <select id="settings-finale-pb-range">
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="1000">1000</option>
+              <option value="1100">1100</option>
+              <option value="1200" selected>1200</option>
+            </select>
+            cents
+          </div>
+          <br />
+          <button class="outlined-btn reset-btn" id="settings-reset">
+            RESET TO DEFAULT SETTINGS
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info modal -->
+    <div class="modal" id="info-modal">
+      <div class="modal-content">
+        <div class="modal-close">
+          <button id="close-info">
+            <span class="material-icons-outlined">cancel</span>
+          </button>
+        </div>
+        <div class="modal-header">About HEJICalc</div>
+      </div>
+    </div>
+
+    <!-- Consent modal -->
+    <div class="hidden" id="consent-modal">
+      <p>
+        To ensure the best ongoing user experience, this tool saves your
+        personalised settings in the local storage of your browser.<br /><a
+          id="accept"
+          href="#"
+          >Accept now</a
+        >
+        or <a href="#" id="next-time">decide next time</a>.
+      </p>
+    </div>
+  </body>
+</html>

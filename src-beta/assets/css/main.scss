@@ -1,0 +1,376 @@
+// @import url(general-sans.css);
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+@font-face {
+    font-family: 'Plainsound Text';
+    src: url(../../assets/fonts/PlainsoundText-Regular.otf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Plainsound Text';
+    src: url(../../assets/fonts/PlainsoundText-Bold.otf);
+    font-weight: bold;
+    font-style: normal;
+}
+
+@mixin appview {
+    @media (max-width: 899px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 525px) {
+        @content;
+    }
+}
+
+$off-white: #F2F3F7;
+$light-gray: #d7dae3;
+$off-black: #3e4346cd;
+$dark-red: #8b0000;
+$medium-green: mediumseagreen;
+
+$sans-serif: 'Plainsound Text', sans-serif;
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: $sans-serif;
+    font-variant-ligatures: normal;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: $off-white;
+}
+
+h3 {
+    color: $dark-red;
+    font-size: 1.3rem;
+    font-weight: normal;
+    padding-top: 32px;
+}
+
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.container {
+    width: 900px;
+    min-height: 100vh;
+    margin: auto;
+    background: $off-white;
+    
+    @include appview {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+.nav {
+    position: fixed;
+    width: 900px;
+    background: $off-white;
+    z-index: 5;
+
+    @include appview {
+        width: 100%;
+    }
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0 10px;
+
+    @include appview {
+        padding: 10px 7px;
+    }
+
+    .app-title {
+            font-weight: 300;
+            color: $dark-red;
+            font-size: 1.4rem;
+        }
+
+    .settings-info {
+        text-align: right;
+
+        button {
+            border: none;
+            background: transparent;
+
+            &:hover {
+                cursor: pointer;
+                color: $dark-red;
+            }
+        }
+        
+        span {
+            font-size: 2rem;
+            padding-left: 5px;
+        }
+    }
+}
+
+.tab {
+    overflow: hidden;
+    background: $off-white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid $off-black;
+
+    button {
+        flex: 25%;
+        background-color: $off-white;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 10px 2px;
+        transition: 0.3s;
+        font-size: 1.1rem;
+        // letter-spacing: 2px;
+        color: $off-black;
+        height: 100%;
+
+        @include appview {
+            font-size: 1rem;
+            // letter-spacing: 1px;
+        }
+
+        @include mobile {
+            // letter-spacing: 0;
+            font-size: 0.8rem;
+        }
+
+        &:hover {
+            border-bottom: 3px solid $light-gray;
+        }
+    }
+
+    button.active {
+        border-bottom: 3px solid $off-black;
+    }
+}
+
+.tab-content {
+    display: none;
+    animation: tabFade 1s;
+    text-align: center;
+    padding: 144px 0 25px;
+
+    @include appview {
+        padding: 111px 7px 25px;
+    }
+}
+  
+@keyframes tabFade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.btn-group-head,
+.input-head {
+    font-weight: 700;
+    text-align: center;
+    padding: 15px 0 10px;
+    font-size: 1.1rem;
+}
+
+.btn-group-prime {
+    padding-top: 10px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    font-size: 0.85rem;
+}
+
+.optional {
+    font-style: normal;
+    font-weight: normal;
+    color: gray;
+}
+
+.btn-group {
+    width: 100%;
+
+    button {
+        font-size: 1.3rem;
+        background-color: #e8eaee;
+        border-radius: 10px;
+        border: none;
+        color: black; 
+        padding: 3px 0; 
+        cursor: pointer; 
+        float: left;
+        width: 14.286%;
+        transition: background-color 0.5s ease;
+
+        &:hover {
+            background-color: $light-gray;
+        }
+
+        &.octave-btn, &.diatonic-btn {
+            font-size: 1rem;
+        }
+    }
+
+    .selected {
+        background-color: $off-black;
+        color: $off-white;
+        
+        &:hover {
+            background-color: $off-black;
+            color: $off-white;
+        }
+    }
+
+    .octave-btn, .settings-octave-btn {
+        width: 7.692%;
+    }
+
+    .settings-chromatic-btn {
+        width: 33.33%;
+    }
+
+    &:after {
+        content: '';
+        clear: both;
+        display: table;
+    }
+}
+
+.offset {
+    margin-top: 5px;
+}
+
+.outlined-btn {
+    background: transparent; 
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    letter-spacing: 2px;
+    border-radius: 5px;
+}
+
+.reset-btn {
+    color: $dark-red; 
+    border: 2px solid $dark-red;
+
+    &:hover {
+        background: $dark-red;
+        color: $off-white;
+    }
+}
+
+.load-btn {
+    color: $medium-green; 
+    border: 2px solid $medium-green;
+
+    &:hover {
+        background: $medium-green;
+        color: $off-white;
+    }
+}   
+
+.input-field {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
+
+    label {
+        position: absolute;
+        top: -12px;
+        left: 24px;
+        padding: 2px;
+        z-index: 1;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-bottom: .5rem;
+        letter-spacing: 1px;
+
+        &:after {
+            content: " ";
+            background-color: $off-white;
+            width: 100%;
+            height: 13px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
+
+    input {
+        box-shadow: none !important;
+        font-size: 1rem;
+        border: 1px black solid;
+        border-radius: 5px;
+        width: 250px;
+        padding: 10px;
+        background: $off-white;
+        text-align: center;
+    }
+}
+
+.radio-group {
+
+    div {
+        padding-top: 15px;
+    }
+
+    .no-top-padding {
+        padding-top: 0;
+    }
+
+    label {
+        font-size: 1.05rem;
+        padding-left: 6px;
+    }
+}
+
+select {
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 6px; 
+}
+
+.fraction-divider {
+    width: 250px;
+    height: 2px;
+    background-color: black;
+    margin: 0 auto 3px;
+}
+
+.head-room-15 {
+    padding-top: 15px;
+}
+
+.head-room-24 {
+    padding-top: 24px;
+}
+
+@import 'modal';
+@import 'calculationDetails';
