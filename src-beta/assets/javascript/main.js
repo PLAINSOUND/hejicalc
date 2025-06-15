@@ -324,6 +324,21 @@ const symbolsOLD = {
     fortySeven: ["ììì", "ìì", "ì", "", "í", "íí", "ííí"]
 };
 
+const midiNotes = [
+    "*ntA",
+    "*stA | *ftB",
+    "*ntB",
+    "*ntC",
+    "*stC | *ftD",
+    "*ntD",
+    "*stD | *ftE",
+    "*ntE",
+    "*ntF",
+    "*stF | *ftG",
+    "*ntG",
+    "*stG | *ftA",
+];
+
 let consent = storage("storage_consent");
 
 // Unput arrays
@@ -671,7 +686,7 @@ $("#next-time").click(function () {
 
 // JI functions
 function getCents(num, den) {
-    return (1200 * Math.log2(num / den));
+    return (1200 * Math.log2(num / den)).toFixed(sessionSettings.precision);
 }
 
 function getDiatonicNote(powers) {
@@ -1333,19 +1348,23 @@ function calculate() {
     $(".accidental-string").html(hejiString);
     $(".diatonic-note").html(diatonicNote);
     const sizeInCents = getCents(inputRelative.fraction.num, inputRelative.fraction.den);
-}
+    const centsSign = Math.sign(sizeInCents);
+    let centsInSemitones = sizeInCents / 100;
+    let semitones = Math.round(Math.abs(centsInSemitones)) % 12;
+    let centDeviation = ((Math.abs(centsInSemitones) - semitones) * 100).toFixed(sessionSettings.precision);
 
+    console.log(semitones * centsSign);
+    console.log(centDeviation);
+}
 //////////////////////////
 // Execute on page load //
 //////////////////////////
 
-if (!consent)
+if (!consent) 
     $("#consent-modal").removeClass("hidden");
-$("#notation-tab").click(); 
-loadDefaultSettings();
-loadNotationInput();
-loadRatioInput();
-loadMelodicCheck();
-
-
+    $("#notation-tab").click(); 
+    loadDefaultSettings();
+    loadNotationInput();
+    loadRatioInput();
+    loadMelodicCheck();
 
