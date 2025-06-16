@@ -68,17 +68,12 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 0 10px;
-}
-@media (max-width: 899px) {
-  .head {
-    padding: 10px 7px;
-  }
+  padding: 15px 0 5px;
 }
 .head .app-title {
   font-weight: 300;
   color: #8b0000;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 .head .settings-info {
   text-align: right;
@@ -92,8 +87,13 @@ button:focus {
   color: #8b0000;
 }
 .head .settings-info span {
-  font-size: 2rem;
+  font-size: 1.3rem;
   padding-left: 5px;
+}
+
+.preview {
+  padding: 0 0 10px;
+  text-align: center;
 }
 
 .tab {
@@ -420,9 +420,10 @@ select {
   border: none;
 }
 
-.output-preview, .numerator-preview, .denominator-preview {
+.numerator-preview, .denominator-preview, .tuner-string {
   display: inline;
   font-size: 1rem;
+  color: rgba(62, 67, 70, 0.8039215686);
 }
 
 .output-preview .output-ratio {

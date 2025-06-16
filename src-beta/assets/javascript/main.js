@@ -86,6 +86,10 @@ class Rational extends Unity {
 // Constants and variables //
 /////////////////////////////
 
+Number.prototype.mod = function(b) {
+    return ((this % b) + b) % b;
+}
+
 const defaultSettings = {
     precision: 1,
     octave: 9,
@@ -324,19 +328,19 @@ const symbolsOLD = {
     fortySeven: ["ììì", "ìì", "ì", "", "í", "íí", "ííí"]
 };
 
-const midiNotes = [
+const tunerNotes = [
     "*ntA",
-    "*stA | *ftB",
+    "*stA | *ftB",
     "*ntB",
     "*ntC",
-    "*stC | *ftD",
+    "*stC | *ftD",
     "*ntD",
-    "*stD | *ftE",
+    "*stD | *ftE",
     "*ntE",
     "*ntF",
-    "*stF | *ftG",
+    "*stF | *ftG",
     "*ntG",
-    "*stG | *ftA",
+    "*stG | *ftA",
 ];
 
 let consent = storage("storage_consent");
@@ -1339,22 +1343,39 @@ function calculate() {
     let input = paletteArray.reduce(rationalReducer);
     const inputRelative = divideRationals(input, unity);
     // Print num and den
+    $(".preview-ratio").html(inputRelative.fraction.num + "/" + inputRelative.fraction.den)
     $(".numerator").html(inputRelative.fraction.num);
     $(".denominator").html(inputRelative.fraction.den);
-    const hejiString = getAccidentals(inputRelative.factors)
+    const hejiString = getAccidentals(inputRelative.factors);
+    console.log(hejiString);
     let diatonicNote = getDiatonicNote(input.factors.powers);
     if (inputMethod != "notation")
         diatonicNote = getDiatonicNote(inputRelative.factors.powers);
-    $(".accidental-string").html(hejiString);
-    $(".diatonic-note").html(diatonicNote);
+    $(".accidental-string").html(hejiString + diatonicNote);
+
+    // CENTS for TUNER
     const sizeInCents = getCents(inputRelative.fraction.num, inputRelative.fraction.den);
     const centsSign = Math.sign(sizeInCents);
     let centsInSemitones = sizeInCents / 100;
-    let semitones = Math.round(Math.abs(centsInSemitones)) % 12;
-    let centDeviation = ((Math.abs(centsInSemitones) - semitones) * 100).toFixed(sessionSettings.precision);
+    let semitones = Math.round(centsInSemitones).mod(12);
+    let centDeviation = ((Math.abs(centsInSemitones) - semitones) * 100).mod(100) * centsSign;
+    let tunerSign = "+";
+    if (centDeviation > 50) {
+        centDeviation -= 100;
+    }
+    if (centDeviation < -50) {
+        centDeviation += 100;
+    }
+     if (centDeviation == 0) {
+        tunerSign = "&plusmn;";
+    } 
+    if (centDeviation < 0) {
+        tunerSign = "&minus;";
+    }
+    centDeviation = (centDeviation < 0) ? Math.abs(centDeviation) : centDeviation;
+    const tunerString = tunerNotes[semitones] + tunerSign + centDeviation.toFixed(sessionSettings.precision) + "c";
+    $(".tuner-string").html(tunerString);
 
-    console.log(semitones * centsSign);
-    console.log(centDeviation);
 }
 //////////////////////////
 // Execute on page load //

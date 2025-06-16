@@ -25,19 +25,6 @@
       <div class="nav">
         <div class="head">
           <div class="app-title">HEJIcalc</div>
-          <div class="output-preview">
-            <div class="output-ratio">
-              <div class="numerator numerator-preview"></div>
-              /
-              <div class="denominator denominator-preview"></div>
-            </div>
-            &bull;
-            <div class="notation-output">
-              <div class="accidental-string accidental-preview"></div>
-              <div class="diatonic-note note-preview"></div>
-            </div>
-            &bull; A+43c
-          </div>
           <div class="settings-info">
             <button id="settings">
               <span class="material-icons-outlined">settings</span>
@@ -45,6 +32,19 @@
             <button id="info">
               <span class="material-icons-outlined">info</span>
             </button>
+          </div>
+        </div>
+        <div class="preview">
+          <div class="output-preview">
+            <div class="output-ratio">
+              <div class="preview-ratio numerator-preview"></div>
+            </div>
+            &bull;
+            <div class="notation-output">
+              <div class="accidental-string accidental-preview"></div>
+            </div>
+            &bull;
+            <div class="tuner-string"></div>
           </div>
         </div>
         <div class="tab">
@@ -375,7 +375,6 @@
         <br />
         <div class="notation-output">
           <div class="accidental-string"></div>
-          <div class="diatonic-note"></div>
         </div>
       </div>
     </div>

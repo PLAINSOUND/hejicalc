@@ -88,16 +88,12 @@ button:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 25px 0 10px;
-
-    @include appview {
-        padding: 10px 7px;
-    }
+    padding: 15px 0 5px;
 
     .app-title {
             font-weight: 300;
             color: $dark-red;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }
 
     .settings-info {
@@ -114,10 +110,15 @@ button:focus {
         }
         
         span {
-            font-size: 2rem;
+            font-size: 1.3rem;
             padding-left: 5px;
         }
     }
+}
+
+.preview {
+    padding: 0 0 10px;
+    text-align: center;
 }
 
 .tab {
